@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>3D Hollow Object</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <div class="gl-canvas-container">
+      <canvas id="gl-canvas" width="800" height="750">
+        Your browser does not support WebGL.
+      </canvas>
+    </div>
+    <div class="all-container">
+      <div class="menu-container">
+        <h1>3D Hollow Object</h1>
+        <div class="help">
+          <button id="help-btn" onclick="toggleHelp()">Show Help</button>
+          <div class="help-message" id="help-message">
+            <p>
+              Untuk melakukan aksi, pilih aksi yang diinginkan pada kolom actions.
+            </p>
+            <h3>Actions</h3>
+            <p>
+              Untuk aksi Create, silahkan pilih shape yang diinginkan pada kolom
+              shape, serta warna yang diinginkan pada Color.
+            </p>
+            <p>
+              Untuk aksi Translation, silahkan klik pada shape yang berada pada
+              canvas, lalu geser slider untuk memindahkan. Untuk mengganti sumbu,
+              klik Toggle Translation Mode.
+            </p>
+            <p>
+              Untuk aksi Rotation, silahkan klik pada shape yang berada pada
+              canvas, lalu geser slider untuk memutar.
+            </p>
+            <p>
+              Untuk aksi Dilatasi, silahkan klik pada shape yang berada pada
+              canvas, lalu input skala yang ingin dimasukkan pada kolom yang
+              tersedia dan klik resize.
+            </p>
+            <p>
+              Untuk aksi Change Size dapat dilakukan pada shape Square dan
+              Rectangle. Silahkan klik pada shape yang berada pada canvas, lalu
+              input skala yang ingin dimasukkan pada kolom yang tersedia dan klik
+              resize. Apabila ingin mengubah sisi yang ingin di resize, klik
+              Toggle Size Mode.
+            </p>
+            <p>
+              Untuk aksi Change Color, klik warna yang diinginkan lalu klik pada
+              shape yang diinginkan. Untuk mengubah warna dari salah satu titik
+              sudut, klik Change vertex color terlebih dahulu. Untuk mengubah
+              warna satu shape, klik Change shape color terlebih dahulu.
+            </p>
+            <p>
+              Untuk aksi Move Point, silahkan klik pada salah satu titik sudut
+              yang berada pada canvas, lalu geser slider untuk memindahkan. Untuk
+              mengganti sumbu, klik Toggle Translation Mode.
+            </p>
+            <p>
+              Untuk aksi Union dan Intersection, silahkan klik pada dua shape yang
+              ingin digabung.
+            </p>
+            <h3>Lainnya:</h3>
+            <p>
+              Untuk menambahkan atau mengurangi titik sudut poligon, klik Add
+              vertex lalu tambahkan titik sudut, atau remove vertex lalu klik pada
+              salah satu titik sudut yang sudah ada.
+            </p>
+            <p>Untuk clear canvas, klik tombol Clear.</p>
+            <p>Untuk Save File, klik save.</p>
+            <p>Untuk Load file, klik Load lalu pilih file konfigurasi.</p>
+          </div>
+        </div>
+        <div class="save-or-load">
+          <h2>Save or Load</h2>
+          <div class="save-or-load-input">
+            <button id="save-btn" onclick="saveConfig()" type="submit">
+              Save
+            </button>
+            <button
+              id="load-btn"
+              onclick="document.getElementById('load').click()"
+              type="submit"
+            >
+              Load
+            </button>
+            <input
+              type="file"
+              name="load"
+              id="load"
+              accept=".txt"
+            />
+            <label for="load" id="fileInputLabel">Choose a file</label>
+          </div>
+        </div>
+        <div class="input-slider">
+          <h2>Action</h2>
+          <h4>Coordinate Slider</h4>
+          <div class="input-slider-input">
+            <input
+              type="range"
+              name="input-slider"
+              id="input-slider"
+              min="0"
+              max="100"
+              value="50"
+            />
+            <label for="input-slider" id="input-slider-label">X</label>
+            <div id="preserve-shape"></div>
+          </div>
+        </div>
+        <div class="clear-input">
+          <button id="clear-btn" onclick="clearCanvas()" type="submit">
+            Clear
+          </button>
+        </div>
+      </div>
+    </div>
+  </body>
+
+  <script
+    type="text/javascript"
+    src="https://www.cs.unm.edu/~angel/BOOK/INTERACTIVE_COMPUTER_GRAPHICS/SEVENTH_EDITION/CODE/Common/webgl-utils.js"
+  ></script>
+  <script src="shader.js"></script>
+  <script src="util.js"></script>
+  <script src="matrix4.js"></script>
+  <script src="main.js"></script>
+</html>
