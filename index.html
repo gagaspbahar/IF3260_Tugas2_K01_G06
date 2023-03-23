@@ -196,11 +196,14 @@
         </div>
         <div>
           <label>Projection Type</label>
-          <select name="projection-type" id="projection-type">
+          <select name="projection-type" id="projection-type" onchange="updateProjectionMode()">
             <option value="orthographic" selected>Orthographic</option>
             <option value="perspective">Perspective</option>
             <option value="oblique">Oblique</option>
           </select>
+        </div>
+        <div>
+          <button onClick="toggleShading()">Toggle Shading</button> <label id="shading-label">Off</label>
         </div>
         <div class="default-input">
           <button id="default-btn" onclick="resetDefault()" type="submit">

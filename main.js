@@ -2,6 +2,7 @@ var translation = [0, 0, 0];
 var rotation = [degToRad(0), degToRad(0), degToRad(0)];
 var scale = [1, 1, 1];
 var projectionMode = "orthographic";
+var shadingEnabled = false;
 
 // Initialize the WebGL context
 var canvas = document.querySelector("#gl-canvas");
@@ -72,41 +73,56 @@ const updateScaleZ = () => {
 
 const updateTranslateX = () => {
   var translateX = parseFloat(document.getElementById("translateX").value);
-  translation[0] = toCanvasX(canvas, translateX, 10);
+  // translation[0] = toCanvasX(canvas, translateX, 10);
+  translation[0] = translateX;
   document.getElementById("translateX-value").innerHTML = translateX;
   drawScene();
 };
 
 const updateTranslateY = () => {
   var translateY = parseFloat(document.getElementById("translateY").value);
-  translation[1] = toCanvasY(canvas, translateY, 10);
+  // translation[1] = toCanvasY(canvas, translateY, 10);
+  translation[1] = translateY;
   document.getElementById("translateY-value").innerHTML = translateY;
   drawScene();
 };
 
 const updateTranslateZ = () => {
   var translateZ = parseFloat(document.getElementById("translateZ").value);
-  translation[2] = toCanvasZ(translateZ, 10);
-  console.log(translation[2]);
+  // translation[2] = toCanvasZ(translateZ, 10);
+  translation[2] = translateZ;
+  // console.log(translation[2]);
   document.getElementById("translateZ-value").innerHTML = translateZ;
   drawScene();
 };
 
 const updateProjectionMode = () => {
-  projectionMode = document.getElementById("projectionMode").value;
+  projectionMode = document.getElementById("projection-type").value;
+  console.log(projectionMode)
+  drawScene();
+};
+
+const toggleShading = () => {
+  shadingEnabled = !shadingEnabled;
+  var text = shadingEnabled ? "On" : "Off";
+  document.getElementById("shading-label").innerHTML = text;
   drawScene();
 };
 
 function render() {
   var buffer = gl.createBuffer();
+  // var obj = loadObject();
+  
   gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
   setGeometry(gl);
+  // gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(obj.vertices), gl.STATIC_DRAW);
   gl.vertexAttribPointer(positionAttributeLocation, 3, gl.FLOAT, false, 0, 0);
   gl.enableVertexAttribArray(positionAttributeLocation);
 
   var colorBuffer = gl.createBuffer();
   gl.bindBuffer(gl.ARRAY_BUFFER, colorBuffer);
   setColors(gl);
+  // gl.bufferData(gl.ARRAY_BUFFER, new Uint8Array(obj.colors), gl.STATIC_DRAW);
   gl.vertexAttribPointer(
     colorAttributeLocation,
     3,
@@ -116,6 +132,31 @@ function render() {
     0
   );
   gl.enableVertexAttribArray(colorAttributeLocation);
+}
+
+function loadObject() {
+  let vertices = hollowObject.points;
+  let vertexSorted = [];
+  let colorSorted = [];
+  for (let i = 0; i < hollowObject.rusuk.length; i++) {
+    let point = hollowObject.rusuk[i];
+    let tmpColor = [];
+    let position = [];
+    for(let j = 0; j < point.topologi.length; j++){
+      position = position.concat(vertices[point.topologi[j][0]]);
+      position = position.concat(vertices[point.topologi[j][1]]);
+      position = position.concat(vertices[point.topologi[j][2]]);
+      position = position.concat(vertices[point.topologi[j][3]]);
+      tmpColor = tmpColor.concat(point.color[j]);
+    }
+    colorSorted.push(tmpColor);
+    vertexSorted.push(position);
+  }
+
+  return {
+    vertices: vertexSorted,
+    colors: colorSorted
+  }
 }
 
 function drawScene() {
@@ -134,12 +175,16 @@ function drawScene() {
   const aspect = gl.canvas.clientWidth / gl.canvas.clientHeight;
   const zNear = 1;
   const zFar = 2000;
-  var left = 0;
-  var right = gl.canvas.clientWidth;
-  var bottom = gl.canvas.clientHeight;
-  var top = 0;
-  var near = 400;
-  var far = -400;
+  // var left = 0;
+  // var right = gl.canvas.clientWidth;
+  // var bottom = gl.canvas.clientHeight;
+  // var top = 0;
+  var left = -10;
+  var right = 10;
+  var bottom = -10;
+  var top = 10;
+  var near = 0.1;
+  var far = 100;
 
   render();
   var matrix = m4.identity();
@@ -189,57 +234,62 @@ function resetDefault() {
 }
 
 function setGeometry(gl) {
+  var array = [
+    // left column front
+    0, 0, 0, 0, 150, 0, 30, 0, 0, 0, 150, 0, 30, 150, 0, 30, 0, 0,
+
+    // top rung front
+    30, 0, 0, 30, 30, 0, 100, 0, 0, 30, 30, 0, 100, 30, 0, 100, 0, 0,
+
+    // middle rung front
+    30, 60, 0, 30, 90, 0, 67, 60, 0, 30, 90, 0, 67, 90, 0, 67, 60, 0,
+
+    // left column back
+    0, 0, 30, 30, 0, 30, 0, 150, 30, 0, 150, 30, 30, 0, 30, 30, 150, 30,
+
+    // top rung back
+    30, 0, 30, 100, 0, 30, 30, 30, 30, 30, 30, 30, 100, 0, 30, 100, 30, 30,
+
+    // middle rung back
+    30, 60, 30, 67, 60, 30, 30, 90, 30, 30, 90, 30, 67, 60, 30, 67, 90, 30,
+
+    // top
+    0, 0, 0, 100, 0, 0, 100, 0, 30, 0, 0, 0, 100, 0, 30, 0, 0, 30,
+
+    // top rung right
+    100, 0, 0, 100, 30, 0, 100, 30, 30, 100, 0, 0, 100, 30, 30, 100, 0, 30,
+
+    // under top rung
+    30, 30, 0, 30, 30, 30, 100, 30, 30, 30, 30, 0, 100, 30, 30, 100, 30, 0,
+
+    // between top rung and middle
+    30, 30, 0, 30, 60, 30, 30, 30, 30, 30, 30, 0, 30, 60, 0, 30, 60, 30,
+
+    // top of middle rung
+    30, 60, 0, 67, 60, 30, 30, 60, 30, 30, 60, 0, 67, 60, 0, 67, 60, 30,
+
+    // right of middle rung
+    67, 60, 0, 67, 90, 30, 67, 60, 30, 67, 60, 0, 67, 90, 0, 67, 90, 30,
+
+    // bottom of middle rung.
+    30, 90, 0, 30, 90, 30, 67, 90, 30, 30, 90, 0, 67, 90, 30, 67, 90, 0,
+
+    // right of bottom
+    30, 90, 0, 30, 150, 30, 30, 90, 30, 30, 90, 0, 30, 150, 0, 30, 150, 30,
+
+    // bottom
+    0, 150, 0, 0, 150, 30, 30, 150, 30, 0, 150, 0, 30, 150, 30, 30, 150, 0,
+
+    // left side
+    0, 0, 0, 0, 0, 30, 0, 150, 30, 0, 0, 0, 0, 150, 30, 0, 150, 0,
+  ]
+  for (var i = 0; i < array.length; i++) {
+    array[i] = (array[i] - 200) * 20 / 400;
+  }
+
   gl.bufferData(
     gl.ARRAY_BUFFER,
-    new Float32Array([
-      // left column front
-      0, 0, 0, 0, 150, 0, 30, 0, 0, 0, 150, 0, 30, 150, 0, 30, 0, 0,
-
-      // top rung front
-      30, 0, 0, 30, 30, 0, 100, 0, 0, 30, 30, 0, 100, 30, 0, 100, 0, 0,
-
-      // middle rung front
-      30, 60, 0, 30, 90, 0, 67, 60, 0, 30, 90, 0, 67, 90, 0, 67, 60, 0,
-
-      // left column back
-      0, 0, 30, 30, 0, 30, 0, 150, 30, 0, 150, 30, 30, 0, 30, 30, 150, 30,
-
-      // top rung back
-      30, 0, 30, 100, 0, 30, 30, 30, 30, 30, 30, 30, 100, 0, 30, 100, 30, 30,
-
-      // middle rung back
-      30, 60, 30, 67, 60, 30, 30, 90, 30, 30, 90, 30, 67, 60, 30, 67, 90, 30,
-
-      // top
-      0, 0, 0, 100, 0, 0, 100, 0, 30, 0, 0, 0, 100, 0, 30, 0, 0, 30,
-
-      // top rung right
-      100, 0, 0, 100, 30, 0, 100, 30, 30, 100, 0, 0, 100, 30, 30, 100, 0, 30,
-
-      // under top rung
-      30, 30, 0, 30, 30, 30, 100, 30, 30, 30, 30, 0, 100, 30, 30, 100, 30, 0,
-
-      // between top rung and middle
-      30, 30, 0, 30, 60, 30, 30, 30, 30, 30, 30, 0, 30, 60, 0, 30, 60, 30,
-
-      // top of middle rung
-      30, 60, 0, 67, 60, 30, 30, 60, 30, 30, 60, 0, 67, 60, 0, 67, 60, 30,
-
-      // right of middle rung
-      67, 60, 0, 67, 90, 30, 67, 60, 30, 67, 60, 0, 67, 90, 0, 67, 90, 30,
-
-      // bottom of middle rung.
-      30, 90, 0, 30, 90, 30, 67, 90, 30, 30, 90, 0, 67, 90, 30, 67, 90, 0,
-
-      // right of bottom
-      30, 90, 0, 30, 150, 30, 30, 90, 30, 30, 90, 0, 30, 150, 0, 30, 150, 30,
-
-      // bottom
-      0, 150, 0, 0, 150, 30, 30, 150, 30, 0, 150, 0, 30, 150, 30, 30, 150, 0,
-
-      // left side
-      0, 0, 0, 0, 0, 30, 0, 150, 30, 0, 0, 0, 0, 150, 30, 0, 150, 0,
-    ]),
+    new Float32Array(array),
     gl.STATIC_DRAW
   );
 }
