@@ -1,7 +1,7 @@
-var translation = [45, 150, 0];
-var rotation = [degToRad(40), degToRad(25), degToRad(325)];
+var translation = [0, 0, 0];
+var rotation = [degToRad(0), degToRad(0), degToRad(0)];
 var scale = [1, 1, 1];
-var projectionMode = "ORTHOGRAPHIC";
+var projectionMode = "orthographic";
 
 // Initialize the WebGL context
 var canvas = document.querySelector("#gl-canvas");
@@ -28,72 +28,74 @@ var matrixLocation = gl.getUniformLocation(program, "u_matrix");
 // Set viewport
 gl.viewport(0, 0, canvas.width, canvas.height);
 
-
 const updateAngleX = () => {
   var angleX = document.getElementById("angleX").value;
   rotation[0] = degToRad(angleX);
   document.getElementById("angleX-value").innerHTML = angleX;
   drawScene();
-}
+};
 
 const updateAngleY = () => {
   var angleY = document.getElementById("angleY").value;
   rotation[1] = degToRad(angleY);
   document.getElementById("angleY-value").innerHTML = angleY;
   drawScene();
-}
+};
 
 const updateAngleZ = () => {
   var angleZ = document.getElementById("angleZ").value;
   rotation[2] = degToRad(angleZ);
   document.getElementById("angleZ-value").innerHTML = angleZ;
   drawScene();
-}
+};
 
 const updateScaleX = () => {
   var scaleX = document.getElementById("scaleX").value;
   scale[0] = scaleX;
   document.getElementById("scaleX-value").innerHTML = scaleX;
   drawScene();
-}
+};
 
 const updateScaleY = () => {
   var scaleY = document.getElementById("scaleY").value;
   scale[1] = scaleY;
   document.getElementById("scaleY-value").innerHTML = scaleY;
   drawScene();
-}
+};
 
 const updateScaleZ = () => {
   var scaleZ = document.getElementById("scaleZ").value;
   scale[2] = scaleZ;
   document.getElementById("scaleZ-value").innerHTML = scaleZ;
   drawScene();
-}
+};
 
 const updateTranslateX = () => {
   var translateX = parseFloat(document.getElementById("translateX").value);
   translation[0] = toCanvasX(canvas, translateX, 10);
   document.getElementById("translateX-value").innerHTML = translateX;
   drawScene();
-}
+};
 
 const updateTranslateY = () => {
   var translateY = parseFloat(document.getElementById("translateY").value);
   translation[1] = toCanvasY(canvas, translateY, 10);
   document.getElementById("translateY-value").innerHTML = translateY;
   drawScene();
-}
+};
 
 const updateTranslateZ = () => {
   var translateZ = parseFloat(document.getElementById("translateZ").value);
   translation[2] = toCanvasZ(translateZ, 10);
-  console.log(translation[2])
+  console.log(translation[2]);
   document.getElementById("translateZ-value").innerHTML = translateZ;
   drawScene();
-}
+};
 
-
+const updateProjectionMode = () => {
+  projectionMode = document.getElementById("projectionMode").value;
+  drawScene();
+};
 
 function render() {
   var buffer = gl.createBuffer();
@@ -105,7 +107,14 @@ function render() {
   var colorBuffer = gl.createBuffer();
   gl.bindBuffer(gl.ARRAY_BUFFER, colorBuffer);
   setColors(gl);
-  gl.vertexAttribPointer(colorAttributeLocation, 3, gl.UNSIGNED_BYTE, true, 0, 0);
+  gl.vertexAttribPointer(
+    colorAttributeLocation,
+    3,
+    gl.UNSIGNED_BYTE,
+    true,
+    0,
+    0
+  );
   gl.enableVertexAttribArray(colorAttributeLocation);
 }
 
@@ -121,16 +130,28 @@ function drawScene() {
   gl.enable(gl.DEPTH_TEST);
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
-  const fieldOfView = 60 * Math.PI / 180;   // in radians
+  const fieldOfView = (60 * Math.PI) / 180; // in radians
   const aspect = gl.canvas.clientWidth / gl.canvas.clientHeight;
   const zNear = 1;
   const zFar = 2000;
-  
-  render();
+  var left = 0;
+  var right = gl.canvas.clientWidth;
+  var bottom = gl.canvas.clientHeight;
+  var top = 0;
+  var near = 400;
+  var far = -400;
 
+  render();
+  var matrix = m4.identity();
   // var projectionMatrix = m4.projection(gl.canvas.clientWidth, gl.canvas.clientHeight, 400);
-  var matrix = m4.perspective(fieldOfView, aspect, zNear, zFar);
-  // var matrix = m4.projection(gl.canvas.clientWidth, gl.canvas.clientHeight, 400);
+
+  if (projectionMode == "orthographic") {
+    matrix = m4.orthographic(left, right, bottom, top, near, far);
+  } else if (projectionMode == "perspective") {
+    matrix = m4.perspective(fieldOfView, aspect, zNear, zFar);
+  } else if (projectionMode == "oblique") {
+  }
+
   matrix = m4.translate(matrix, translation[0], translation[1], translation[2]);
   matrix = m4.xRotate(matrix, rotation[0]);
   matrix = m4.yRotate(matrix, rotation[1]);
@@ -140,6 +161,31 @@ function drawScene() {
 
   gl.uniformMatrix4fv(matrixLocation, false, matrix);
   gl.drawArrays(gl.TRIANGLES, 0, 16 * 6);
+}
+
+function resetDefault() {
+  rotation = [0, 0, 0];
+  scale = [1, 1, 1];
+  translation = [0, 0, 0];
+  document.getElementById("angleX").value = 0;
+  document.getElementById("angleY").value = 0;
+  document.getElementById("angleZ").value = 0;
+  document.getElementById("scaleX").value = 1;
+  document.getElementById("scaleY").value = 1;
+  document.getElementById("scaleZ").value = 1;
+  document.getElementById("translateX").value = 0;
+  document.getElementById("translateY").value = 0;
+  document.getElementById("translateZ").value = 0;
+  document.getElementById("angleX-value").innerHTML = 0;
+  document.getElementById("angleY-value").innerHTML = 0;
+  document.getElementById("angleZ-value").innerHTML = 0;
+  document.getElementById("scaleX-value").innerHTML = 1;
+  document.getElementById("scaleY-value").innerHTML = 1;
+  document.getElementById("scaleZ-value").innerHTML = 1;
+  document.getElementById("translateX-value").innerHTML = 0;
+  document.getElementById("translateY-value").innerHTML = 0;
+  document.getElementById("translateZ-value").innerHTML = 0;
+  drawScene();
 }
 
 function setGeometry(gl) {
