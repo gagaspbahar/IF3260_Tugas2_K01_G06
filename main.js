@@ -28,6 +28,70 @@ var matrixLocation = gl.getUniformLocation(program, "u_matrix");
 gl.viewport(0, 0, canvas.width, canvas.height);
 
 
+const updateAngleX = () => {
+  var angleX = document.getElementById("angleX").value;
+  rotation[0] = degToRad(angleX);
+  document.getElementById("angleX-value").innerHTML = angleX;
+  drawScene();
+}
+
+const updateAngleY = () => {
+  var angleY = document.getElementById("angleY").value;
+  rotation[1] = degToRad(angleY);
+  document.getElementById("angleY-value").innerHTML = angleY;
+  drawScene();
+}
+
+const updateAngleZ = () => {
+  var angleZ = document.getElementById("angleZ").value;
+  rotation[2] = degToRad(angleZ);
+  document.getElementById("angleZ-value").innerHTML = angleZ;
+  drawScene();
+}
+
+const updateScaleX = () => {
+  var scaleX = document.getElementById("scaleX").value;
+  scale[0] = scaleX;
+  document.getElementById("scaleX-value").innerHTML = scaleX;
+  drawScene();
+}
+
+const updateScaleY = () => {
+  var scaleY = document.getElementById("scaleY").value;
+  scale[1] = scaleY;
+  document.getElementById("scaleY-value").innerHTML = scaleY;
+  drawScene();
+}
+
+const updateScaleZ = () => {
+  var scaleZ = document.getElementById("scaleZ").value;
+  scale[2] = scaleZ;
+  document.getElementById("scaleZ-value").innerHTML = scaleZ;
+  drawScene();
+}
+
+const updateTranslateX = () => {
+  var translateX = parseFloat(document.getElementById("translateX").value);
+  translation[0] = toCanvasX(canvas, translateX, 10);
+  document.getElementById("translateX-value").innerHTML = translateX;
+  drawScene();
+}
+
+const updateTranslateY = () => {
+  var translateY = parseFloat(document.getElementById("translateY").value);
+  translation[1] = toCanvasY(canvas, translateY, 10);
+  document.getElementById("translateY-value").innerHTML = translateY;
+  drawScene();
+}
+
+const updateTranslateZ = () => {
+  var translateZ = document.getElementById("translateZ").value;
+  translation[2] += translateZ;
+  document.getElementById("translateZ-value").innerHTML = translateZ;
+  drawScene();
+}
+
+
 
 function render() {
   var buffer = gl.createBuffer();
