@@ -17,3 +17,9 @@ const toCanvasY = (canvas, y, base) => {
   newY = (newY + base)/(2*base) * canvas.height;
   return newY;
 }
+
+const toCanvasZ = (z, base) => {
+  let newZ = z;
+  newZ = (newZ + base)/(2*base) * (-2000);
+  return newZ;
+}

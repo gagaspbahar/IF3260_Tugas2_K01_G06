@@ -1,6 +1,7 @@
 var translation = [45, 150, 0];
 var rotation = [degToRad(40), degToRad(25), degToRad(325)];
 var scale = [1, 1, 1];
+var projectionMode = "ORTHOGRAPHIC";
 
 // Initialize the WebGL context
 var canvas = document.querySelector("#gl-canvas");
@@ -85,8 +86,9 @@ const updateTranslateY = () => {
 }
 
 const updateTranslateZ = () => {
-  var translateZ = document.getElementById("translateZ").value;
-  translation[2] += translateZ;
+  var translateZ = parseFloat(document.getElementById("translateZ").value);
+  translation[2] = toCanvasZ(translateZ, 10);
+  console.log(translation[2])
   document.getElementById("translateZ-value").innerHTML = translateZ;
   drawScene();
 }
@@ -118,15 +120,23 @@ function drawScene() {
   gl.enable(gl.CULL_FACE);
   gl.enable(gl.DEPTH_TEST);
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+
+  const fieldOfView = 60 * Math.PI / 180;   // in radians
+  const aspect = gl.canvas.clientWidth / gl.canvas.clientHeight;
+  const zNear = 1;
+  const zFar = 2000;
   
   render();
 
-  var matrix = m4.projection(gl.canvas.clientWidth, gl.canvas.clientHeight, 400);
+  // var projectionMatrix = m4.projection(gl.canvas.clientWidth, gl.canvas.clientHeight, 400);
+  var matrix = m4.perspective(fieldOfView, aspect, zNear, zFar);
+  // var matrix = m4.projection(gl.canvas.clientWidth, gl.canvas.clientHeight, 400);
   matrix = m4.translate(matrix, translation[0], translation[1], translation[2]);
   matrix = m4.xRotate(matrix, rotation[0]);
   matrix = m4.yRotate(matrix, rotation[1]);
   matrix = m4.zRotate(matrix, rotation[2]);
   matrix = m4.scale(matrix, scale[0], scale[1], scale[2]);
+  // matrix = m4.multiply(projectionMatrix, matrix);
 
   gl.uniformMatrix4fv(matrixLocation, false, matrix);
   gl.drawArrays(gl.TRIANGLES, 0, 16 * 6);
