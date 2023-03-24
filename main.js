@@ -1,5 +1,387 @@
+const hollowObject = {
+  "points":[
+      [-5,-4,-4],
+      [-4,-4,-4],
+      [-4,4,-4],
+      [-5,4,-4],
+      [-4,4,-5],
+      [-4,4,-4],
+      [-4,-4,-4],
+      [-4,-4,-5],
+      [-5,-5,-5],
+      [-5,-4,-4],
+      [-5,4,-4],
+      [-5,5,-5],
+      [-5,5,-5],
+      [-4,4,-5],
+      [-4,-4,-5],
+      [-5,-5,-5],
+      [5,4,-4],
+      [4,4,-4],
+      [4,-4,-4],
+      [5,-4,-4],
+      [4,-4,-5],
+      [4,-4,-4],
+      [4,4,-4],
+      [4,4,-5],
+      [5,5,-5],
+      [5,4,-4],
+      [5,-4,-4],
+      [5,-5,-5],
+      [5,-5,-5],
+      [4,-4,-5],
+      [4,4,-5],
+      [5,5,-5],
+      [-5,4,4],
+      [-4,4,4],
+      [-4,-4,4],
+      [-5,-4,4],
+      [-4,-4,5],
+      [-4,-4,4],
+      [-4,4,4],
+      [-4,4,5],
+      [-5,5,5],
+      [-5,4,4],
+      [-5,-4,4],
+      [-5,-5,5],
+      [-5,-5,5],
+      [-4,-4,5],
+      [-4,4,5],
+      [-5,5,5],
+      [5,-4,4],
+      [4,-4,4],
+      [4,4,4],
+      [5,4,4],
+      [4,4,5],
+      [4,4,4],
+      [4,-4,4],
+      [4,-4,5],
+      [5,-5,5],
+      [5,-4,4],
+      [5,4,4],
+      [5,5,5],
+      [5,5,5],
+      [4,4,5],
+      [4,-4,5],
+      [5,-5,5],
+      [4,-5,-4],
+      [4,-4,-4],
+      [-4,-4,-4],
+      [-4,-5,-4],
+      [-4,-4,-5],
+      [-4,-4,-4],
+      [4,-4,-4],
+      [4,-4,-5],
+      [5,-5,-5],
+      [4,-5,-4],
+      [-4,-5,-4],
+      [-5,-5,-5],
+      [-5,-5,-5],
+      [-4,-4,-5],
+      [4,-4,-5],
+      [5,-5,-5],
+      [-4,5,-4],
+      [-4,4,-4],
+      [4,4,-4],
+      [4,5,-4],
+      [4,4,-5],
+      [4,4,-4],
+      [-4,4,-4],
+      [-4,4,-5],
+      [-5,5,-5],
+      [-4,5,-4],
+      [4,5,-4],
+      [5,5,-5],
+      [5,5,-5],
+      [4,4,-5],
+      [-4,4,-5],
+      [-5,5,-5],
+      [-4,-5,4],
+      [-4,-4,4],
+      [4,-4,4],
+      [4,-5,4],
+      [4,-4,5],
+      [4,-4,4],
+      [-4,-4,4],
+      [-4,-4,5],
+      [-5,-5,5],
+      [-4,-5,4],
+      [4,-5,4],
+      [5,-5,5],
+      [5,-5,5],
+      [4,-4,5],
+      [-4,-4,5],
+      [-5,-5,5],
+      [4,5,4],
+      [4,4,4],
+      [-4,4,4],
+      [-4,5,4],
+      [-4,4,5],
+      [-4,4,4],
+      [4,4,4],
+      [4,4,5],
+      [5,5,5],
+      [4,5,4],
+      [-4,5,4],
+      [-5,5,5],
+      [-5,5,5],
+      [-4,4,5],
+      [4,4,5],
+      [5,5,5],
+      [-5,4,-4],
+      [-4,4,-4],
+      [-4,4,4],
+      [-5,4,4],
+      [-4,5,4],
+      [-4,4,4],
+      [-4,4,-4],
+      [-4,5,-4],
+      [-5,5,-5],
+      [-5,4,-4],
+      [-5,4,4],
+      [-5,5,5],
+      [-5,5,5],
+      [-4,5,4],
+      [-4,5,-4],
+      [-5,5,-5],
+      [5,4,4],
+      [4,4,4],
+      [4,4,-4],
+      [5,4,-4],
+      [4,5,-4],
+      [4,4,-4],
+      [4,4,4],
+      [4,5,4],
+      [5,5,5],
+      [5,4,4],
+      [5,4,-4],
+      [5,5,-5],
+      [5,5,-5],
+      [4,5,-4],
+      [4,5,4],
+      [5,5,5],
+      [-5,-4,4],
+      [-4,-4,4],
+      [-4,-4,-4],
+      [-5,-4,-4],
+      [-4,-5,-4],
+      [-4,-4,-4],
+      [-4,-4,4],
+      [-4,-5,4],
+      [-5,-5,5],
+      [-5,-4,4],
+      [-5,-4,-4],
+      [-5,-5,-5],
+      [-5,-5,-5],
+      [-4,-5,-4],
+      [-4,-5,4],
+      [-5,-5,5],
+      [5,-4,-4],
+      [4,-4,-4],
+      [4,-4,4],
+      [5,-4,4],
+      [4,-5,4],
+      [4,-4,4],
+      [4,-4,-4],
+      [4,-5,-4],
+      [5,-5,-5],
+      [5,-4,-4],
+      [5,-4,4],
+      [5,-5,5],
+      [5,-5,5],
+      [4,-5,4],
+      [4,-5,-4],
+      [5,-5,-5]
+  ],
+  "rusuk":[
+      {
+          "topologi":[
+              [0,1,2,3],
+              [4,5,6,7],
+              [8,9,10,11],
+              [12,13,14,15]
+          ],
+          "color":[
+              [1,0.6,0.9,1],
+              [1,0.6,0.9,1],
+              [1,0.6,0.9,1],
+              [1,0.6,0.9,1]
+          ]
+      },
+      {
+          "topologi":[
+              [16,17,18,19],
+              [20,21,22,23],
+              [24,25,26,27],
+              [28,29,30,31]
+          ],
+          "color":[
+              [1,0.6,0.9,1],
+              [1,0.6,0.9,1],
+              [1,0.6,0.9,1],
+              [1,0.6,0.9,1]
+          ]
+      },
+      {
+          "topologi":[
+              [32,33,34,35],
+              [36,37,38,39],
+              [40,41,42,43],
+              [44,45,46,47]
+          ],
+          "color":[
+              [1,0.6,0.9,1],
+              [1,0.6,0.9,1],
+              [1,0.6,0.9,1],
+              [1,0.6,0.9,1]
+          ]
+      },
+      {
+          "topologi":[
+              [48,49,50,51],
+              [52,53,54,55],
+              [56,57,58,59],
+              [60,61,62,63]
+          ],
+          "color":[
+              [1,0.6,0.9,1],
+              [1,0.6,0.9,1],
+              [1,0.6,0.9,1],
+              [1,0.6,0.9,1]
+          ]
+      },
+      {
+          "topologi":[
+              [64,65,66,67],
+              [68,69,70,71],
+              [72,73,74,75],
+              [76,77,78,79]
+          ],
+          "color":[
+              [1,0.6,0.9,1],
+              [1,0.6,0.9,1],
+              [1,0.6,0.9,1],
+              [1,0.6,0.9,1]
+          ]
+      },
+      {
+          "topologi":[
+              [80,81,82,83],
+              [84,85,86,87],
+              [88,89,90,91],
+              [92,93,94,95]
+          ],
+          "color":[
+              [1,0.6,0.9,1],
+              [1,0.6,0.9,1],
+              [1,0.6,0.9,1],
+              [1,0.6,0.9,1]
+          ]
+      },
+      {
+          "topologi":[
+              [96,97,98,99],
+              [100,101,102,103],
+              [104,105,106,107],
+              [108,109,110,111]
+          ],
+          "color":[
+              [1,0.6,0.9,1],
+              [1,0.6,0.9,1],
+              [1,0.6,0.9,1],
+              [1,0.6,0.9,1]
+          ]
+      },
+      {
+          "topologi":[
+              [112,113,114,115],
+              [116,117,118,119],
+              [120,121,122,123],
+              [124,125,126,127]
+          ],
+          "color":[
+              [1,0.6,0.9,1],
+              [1,0.6,0.9,1],
+              [1,0.6,0.9,1],
+              [1,0.6,0.9,1]
+          ]
+      },
+      {
+          "topologi":[
+              [128,129,130,131],
+              [132,133,134,135],
+              [136,137,138,139],
+              [140,141,142,143]
+          ],
+          "color":[
+              [1,0.6,0.9,1],
+              [1,0.6,0.9,1],
+              [1,0.6,0.9,1],
+              [1,0.6,0.9,1]
+          ]
+      },
+      {
+          "topologi":[
+              [144,145,146,147],
+              [148,149,150,151],
+              [152,153,154,155],
+              [156,157,158,159]
+          ],
+          "color":[
+              [1,0.6,0.9,1],
+              [1,0.6,0.9,1],
+              [1,0.6,0.9,1],
+              [1,0.6,0.9,1]
+          ]
+      },
+      {
+          "topologi":[
+              [160,161,162,163],
+              [164,165,166,167],
+              [168,169,170,171],
+              [172,173,174,175]
+          ],
+          "color":[
+              [1,0.6,0.9,1],
+              [1,0.6,0.9,1],
+              [1,0.6,0.9,1],
+              [1,0.6,0.9,1]
+          ]
+      },
+      {
+          "topologi":[
+              [176,177,178,179],
+              [180,181,182,183],
+              [184,185,186,187],
+              [188,189,190,191]
+          ],
+          "color":[
+              [1,0.6,0.9,1],
+              [1,0.6,0.9,1],
+              [1,0.6,0.9,1],
+              [1,0.6,0.9,1]
+          ]
+      }
+  ],
+  "slider": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      1,
+      1
+  ],
+  "projection" : "orthographic",
+  "shading" : false,
+  "rotate" : 0,
+  "animation" : false
+}
+
 var vertices = [];
-var hollowObject;
+// var hollowObject;
 var colors = [];
 var translation = [0, 0, 0];
 var rotation = [degToRad(0), degToRad(0), degToRad(0)];
@@ -12,6 +394,21 @@ var rotateY = 0;
 var rotateZ = 0;
 var rotateAxis = 0;
 var reqAnime = null;
+var cameraAngleRadians = degToRad(0);
+var cameraRadius = 200;
+var cameraTarget = [0, 0, 0];
+
+var fieldOfView = (60 * Math.PI) / 180; // in radians
+var zNear = 1;
+var zFar = 2000;
+var left = -10;
+var right = 10;
+var bottom = -10;
+var topFov = 10;
+var near = -100;
+var far = 100;
+var up = [0, 1, 0];
+
 
 // Initialize the WebGL context
 var canvas = document.querySelector("#gl-canvas");
@@ -19,6 +416,7 @@ var gl = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
 if (!gl) {
   alert("WebGL not available");
 }
+const aspect = gl.canvas.clientWidth / gl.canvas.clientHeight;
 
 // Create, upload, and compile the shaders
 var vertexShader = createShader(gl, gl.VERTEX_SHADER, vertexShaderSource);
@@ -105,9 +503,14 @@ const updateTranslateZ = () => {
   drawScene();
 };
 
+const updateCameraX = () => {
+  var cameraX = parseFloat(document.getElementById("cameraX").value);
+
+}
+
 const updateProjectionMode = () => {
   projectionMode = document.getElementById("projection-type").value;
-  console.log(projectionMode)
+  console.log(projectionMode);
   drawScene();
 };
 
@@ -140,7 +543,7 @@ const rotateToZ = () => {
 function render(vertice, color) {
   var buffer = gl.createBuffer();
   // var obj = loadObject();
-  
+
   gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
   gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertice), gl.STATIC_DRAW);
   gl.vertexAttribPointer(positionAttributeLocation, 3, gl.FLOAT, false, 0, 0);
@@ -148,37 +551,62 @@ function render(vertice, color) {
 
   var faceColors = [];
   for (var j = 0; j < color.length; ++j) {
-      const c = color[j];
-      for (var i = 0; i < 4; ++i) {
-          faceColors = faceColors.concat(c);
-      }
+    const c = color[j];
+    for (var i = 0; i < 4; ++i) {
+      faceColors = faceColors.concat(c);
+    }
   }
 
   var colorBuffer = gl.createBuffer();
   gl.bindBuffer(gl.ARRAY_BUFFER, colorBuffer);
   gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(faceColors), gl.STATIC_DRAW);
-  gl.vertexAttribPointer(
-    colorAttributeLocation,
-    4,
-    gl.FLOAT,
-    false,
-    0,
-    0
-  );
+  gl.vertexAttribPointer(colorAttributeLocation, 4, gl.FLOAT, false, 0, 0);
   gl.enableVertexAttribArray(colorAttributeLocation);
 
   const indicesBuffer = gl.createBuffer();
   gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indicesBuffer);
-  gl.bufferData(gl.ELEMENT_ARRAY_BUFFER,
+  gl.bufferData(
+    gl.ELEMENT_ARRAY_BUFFER,
     new Uint16Array([
-      0, 1, 2,   0, 2, 3,    // front
-      4, 5, 6,   4, 6, 7,    // back
-      8, 9, 10,  8, 10, 11,  // top
-      12, 13, 14, 12, 14, 15,  // bottom
-      16, 17, 18, 16, 18, 19,  // right
-      20, 21, 22, 20, 22, 23,  // left
-      ]),
-    gl.STATIC_DRAW);
+      0,
+      1,
+      2,
+      0,
+      2,
+      3, // front
+      4,
+      5,
+      6,
+      4,
+      6,
+      7, // back
+      8,
+      9,
+      10,
+      8,
+      10,
+      11, // top
+      12,
+      13,
+      14,
+      12,
+      14,
+      15, // bottom
+      16,
+      17,
+      18,
+      16,
+      18,
+      19, // right
+      20,
+      21,
+      22,
+      20,
+      22,
+      23, // left
+    ]),
+    gl.STATIC_DRAW
+  );
 }
 
 function loadObject() {
@@ -189,7 +617,7 @@ function loadObject() {
     let point = hollowObject.rusuk[i];
     let tmpColor = [];
     let position = [];
-    for(let j = 0; j < point.topologi.length; j++){
+    for (let j = 0; j < point.topologi.length; j++) {
       position = position.concat(vertice[point.topologi[j][0]]);
       position = position.concat(vertice[point.topologi[j][1]]);
       position = position.concat(vertice[point.topologi[j][2]]);
@@ -211,12 +639,12 @@ function onChange(event) {
   reader.readAsText(event.target.files[0]);
 }
 
-function onReaderLoad(event){
+function onReaderLoad(event) {
   hollowObject = JSON.parse(event.target.result);
   loadObject();
 }
 
-document.getElementById('load').addEventListener('change', onChange); 
+document.getElementById("load").addEventListener("change", onChange);
 
 function drawScene() {
   if (reqAnime) {
@@ -227,39 +655,36 @@ function drawScene() {
   gl.clear(gl.COLOR_BUFFER_BIT);
 
   // Draw a rectangle
-  var offsetNow = 0;
-  var countNow = 0;
   gl.enable(gl.CULL_FACE);
   gl.enable(gl.DEPTH_TEST);
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
   for (let i = 0; i < vertices.length; i++) {
-    const fieldOfView = (60 * Math.PI) / 180; // in radians
-    const aspect = gl.canvas.clientWidth / gl.canvas.clientHeight;
-    const zNear = 1;
-    const zFar = 2000;
-    // var left = 0;
-    // var right = gl.canvas.clientWidth;
-    // var bottom = gl.canvas.clientHeight;
-    // var top = 0;
-    var left = -10;
-    var right = 10;
-    var bottom = -10;
-    var top = 10;
-    var near = 0.1;
-    var far = 100;
-    var count = vertices[i].length/2;
+    var count = vertices[i].length / 2;
     render(vertices[i], colors[i]);
     var matrix = m4.identity();
     // var projectionMatrix = m4.projection(gl.canvas.clientWidth, gl.canvas.clientHeight, 400);
 
+    var cameraMatrix = m4.yRotation(cameraAngleRadians);
+    cameraMatrix = m4.translate(cameraMatrix, 0, 0, cameraRadius * 1.5);
+    cameraPosition = [cameraMatrix[12], cameraMatrix[13], cameraMatrix[14]];
+
+    cameraMatrix = m4.lookAt(cameraPosition, cameraTarget, up);
+    var viewMatrix = m4.inverse(cameraMatrix);
+    matrix = m4.multiply(matrix, viewMatrix);
+
     if (projectionMode == "orthographic") {
-      matrix = m4.orthographic(left, right, bottom, top, near, far);
+      matrix = m4.orthographic(left, right, bottom, topFov, near, far);
     } else if (projectionMode == "perspective") {
       matrix = m4.perspective(fieldOfView, aspect, zNear, zFar);
     } else if (projectionMode == "oblique") {
     }
 
-    matrix = m4.translate(matrix, translation[0], translation[1], translation[2]);
+    matrix = m4.translate(
+      matrix,
+      translation[0],
+      translation[1],
+      translation[2]
+    );
     matrix = m4.xRotate(matrix, rotation[0]);
     matrix = m4.yRotate(matrix, rotation[1]);
     matrix = m4.zRotate(matrix, rotation[2]);
@@ -389,3 +814,4 @@ function download(fileName, contentType, content) {
   a.download = fileName;
   a.click();
 }
+loadObject();

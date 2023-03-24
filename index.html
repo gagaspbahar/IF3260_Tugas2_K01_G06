@@ -135,8 +135,8 @@
                   type="range"
                   id="translateZ"
                   name="translateZ"
-                  min="-10"
-                  max="10"
+                  min="-100"
+                  max="1"
                   value="0"
                   step="0.01"
                   oninput="updateTranslateZ()"
@@ -194,16 +194,88 @@
             </tr>
           </table>
         </div>
+        <h2>Camera Control</h2>
+        <table>
+          <tr>
+            <td>Camera X</td>
+            <td>
+              <input
+                type="range"
+                id="cameraX"
+                name="cameraX"
+                min="-10"
+                max="10"
+                value="0"
+                step="0.01"
+                oninput="updateCameraX()"
+              />
+            </td>
+            <td><label id="cameraX-value">0</label></td>
+          </tr>
+          <tr>
+            <td>Camera Y</td>
+            <td>
+              <input
+                type="range"
+                id="cameraY"
+                name="cameraY"
+                min="-10"
+                max="10"
+                value="0"
+                step="0.01"
+                oninput="updateCameraY()"
+              />
+            </td>
+            <td><label id="cameraY-value">0</label></td>
+          </tr>
+          <tr>
+            <td>Camera Z</td>
+            <td>
+              <input
+                type="range"
+                id="cameraZ"
+                name="cameraZ"
+                min="-10"
+                max="10"
+                value="0"
+                step="0.01"
+                oninput="updateCameraZ()"
+              />
+            </td>
+            <td><label id="cameraZ-value">0</label></td>
+          </tr>
+          <tr>
+            <td>Camera Radius</td>
+            <td>
+              <input
+                type="range"
+                id="cameraRadius"
+                name="cameraRadius"
+                min="0"
+                max="400"
+                value="200"
+                step="1"
+                oninput="updateCameraRadius()"
+              />
+            </td>
+            <td><label id="cameraRadius-value">200</label></td>
+          </tr>
+        </table>
         <div>
           <label>Projection Type</label>
-          <select name="projection-type" id="projection-type" onchange="updateProjectionMode()">
+          <select
+            name="projection-type"
+            id="projection-type"
+            onchange="updateProjectionMode()"
+          >
             <option value="orthographic" selected>Orthographic</option>
             <option value="perspective">Perspective</option>
             <option value="oblique">Oblique</option>
           </select>
         </div>
         <div>
-          <button onClick="toggleShading()">Toggle Shading</button> <label id="shading-label">Off</label>
+          <button onClick="toggleShading()">Toggle Shading</button>
+          <label id="shading-label">Off</label>
         </div>
         <div class="animation">
           <button id="rotate-x" onclick="rotateToX()">Rotate X</button>
