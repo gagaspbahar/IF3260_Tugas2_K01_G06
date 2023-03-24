@@ -1,5 +1,6 @@
 var vertexShaderSource = `
 attribute vec4 a_position;
+attribute vec3 a_normal;
 uniform mat4 u_matrix;
 uniform vec2 u_resolution;
 attribute vec4 a_color;
@@ -17,7 +18,7 @@ varying vec4 v_color;
 void main() {
   gl_FragColor = v_color;
 }`;
-
+ 
 // Create a shader object, upload the source and compile the shader.
 function createShader(gl, type, source) {
   var shader = gl.createShader(type);

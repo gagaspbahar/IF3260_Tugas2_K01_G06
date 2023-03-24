@@ -1,3 +1,5 @@
+var vertices = [];
+var colors = [];
 var translation = [0, 0, 0];
 var rotation = [degToRad(0), degToRad(0), degToRad(0)];
 var scale = [1, 1, 1];
@@ -109,34 +111,44 @@ const toggleShading = () => {
   drawScene();
 };
 
-function render() {
+function render(vertice, color) {
   var buffer = gl.createBuffer();
   // var obj = loadObject();
   
   gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
-  setGeometry(gl);
-  // gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(obj.vertices), gl.STATIC_DRAW);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertice), gl.STATIC_DRAW);
   gl.vertexAttribPointer(positionAttributeLocation, 3, gl.FLOAT, false, 0, 0);
   gl.enableVertexAttribArray(positionAttributeLocation);
 
   var colorBuffer = gl.createBuffer();
   gl.bindBuffer(gl.ARRAY_BUFFER, colorBuffer);
-  setColors(gl);
-  // gl.bufferData(gl.ARRAY_BUFFER, new Uint8Array(obj.colors), gl.STATIC_DRAW);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(color), gl.STATIC_DRAW);
   gl.vertexAttribPointer(
     colorAttributeLocation,
-    3,
-    gl.UNSIGNED_BYTE,
-    true,
+    4,
+    gl.FLOAT,
+    false,
     0,
     0
   );
   gl.enableVertexAttribArray(colorAttributeLocation);
+
+  const indicesBuffer = gl.createBuffer();
+  gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indicesBuffer);
+  gl.bufferData(gl.ELEMENT_ARRAY_BUFFER,
+    new Uint16Array([
+      0, 1, 2,   0, 2, 3,    // front
+      4, 5, 6,   4, 6, 7,    // back
+      8, 9, 10,  8, 10, 11,  // top
+      12, 13, 14, 12, 14, 15,  // bottom
+      16, 17, 18, 16, 18, 19,  // right
+      20, 21, 22, 20, 22, 23,  // left
+      ]),
+    gl.STATIC_DRAW);
 }
 
 function loadObject() {
-  console.log(hollowObject);
-  let vertices = hollowObject.points;
+  let vertice = hollowObject.points;
   let vertexSorted = [];
   let colorSorted = [];
   for (let i = 0; i < hollowObject.rusuk.length; i++) {
@@ -144,20 +156,18 @@ function loadObject() {
     let tmpColor = [];
     let position = [];
     for(let j = 0; j < point.topologi.length; j++){
-      position = position.concat(vertices[point.topologi[j][0]]);
-      position = position.concat(vertices[point.topologi[j][1]]);
-      position = position.concat(vertices[point.topologi[j][2]]);
-      position = position.concat(vertices[point.topologi[j][3]]);
+      position = position.concat(vertice[point.topologi[j][0]]);
+      position = position.concat(vertice[point.topologi[j][1]]);
+      position = position.concat(vertice[point.topologi[j][2]]);
+      position = position.concat(vertice[point.topologi[j][3]]);
       tmpColor = tmpColor.concat(point.color[j]);
     }
     colorSorted.push(tmpColor);
     vertexSorted.push(position);
   }
-
-  return {
-    vertices: vertexSorted,
-    colors: colorSorted
-  }
+  vertices = vertexSorted;
+  colors = colorSorted;
+  drawScene();
 }
 
 function onChange(event) {
@@ -171,9 +181,7 @@ function onReaderLoad(event){
   loadObject();
 }
 
-document.getElementById('load').addEventListener('change', onChange);
-
-
+document.getElementById('load').addEventListener('change', onChange); 
 
 function drawScene() {
   // Clear the canvas
@@ -187,41 +195,44 @@ function drawScene() {
   gl.enable(gl.DEPTH_TEST);
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
-  const fieldOfView = (60 * Math.PI) / 180; // in radians
-  const aspect = gl.canvas.clientWidth / gl.canvas.clientHeight;
-  const zNear = 1;
-  const zFar = 2000;
-  // var left = 0;
-  // var right = gl.canvas.clientWidth;
-  // var bottom = gl.canvas.clientHeight;
-  // var top = 0;
-  var left = -10;
-  var right = 10;
-  var bottom = -10;
-  var top = 10;
-  var near = 0.1;
-  var far = 100;
+  for (let i = 0; i < vertices.length; i++) {
+    const fieldOfView = (60 * Math.PI) / 180; // in radians
+    const aspect = gl.canvas.clientWidth / gl.canvas.clientHeight;
+    const zNear = 1;
+    const zFar = 2000;
+    // var left = 0;
+    // var right = gl.canvas.clientWidth;
+    // var bottom = gl.canvas.clientHeight;
+    // var top = 0;
+    var left = -10;
+    var right = 10;
+    var bottom = -10;
+    var top = 10;
+    var near = 0.1;
+    var far = 100;
+    var count = vertices[i].length/2;
 
-  render();
-  var matrix = m4.identity();
-  // var projectionMatrix = m4.projection(gl.canvas.clientWidth, gl.canvas.clientHeight, 400);
+    render(vertices[i], colors[i]);
+    var matrix = m4.identity();
+    // var projectionMatrix = m4.projection(gl.canvas.clientWidth, gl.canvas.clientHeight, 400);
 
-  if (projectionMode == "orthographic") {
-    matrix = m4.orthographic(left, right, bottom, top, near, far);
-  } else if (projectionMode == "perspective") {
-    matrix = m4.perspective(fieldOfView, aspect, zNear, zFar);
-  } else if (projectionMode == "oblique") {
+    if (projectionMode == "orthographic") {
+      matrix = m4.orthographic(left, right, bottom, top, near, far);
+    } else if (projectionMode == "perspective") {
+      matrix = m4.perspective(fieldOfView, aspect, zNear, zFar);
+    } else if (projectionMode == "oblique") {
+    }
+
+    matrix = m4.translate(matrix, translation[0], translation[1], translation[2]);
+    matrix = m4.xRotate(matrix, rotation[0]);
+    matrix = m4.yRotate(matrix, rotation[1]);
+    matrix = m4.zRotate(matrix, rotation[2]);
+    matrix = m4.scale(matrix, scale[0], scale[1], scale[2]);
+    // matrix = m4.multiply(projectionMatrix, matrix);
+
+    gl.uniformMatrix4fv(matrixLocation, false, matrix);
+    gl.drawElements(this.gl.TRIANGLES, count, gl.UNSIGNED_SHORT, 0);
   }
-
-  matrix = m4.translate(matrix, translation[0], translation[1], translation[2]);
-  matrix = m4.xRotate(matrix, rotation[0]);
-  matrix = m4.yRotate(matrix, rotation[1]);
-  matrix = m4.zRotate(matrix, rotation[2]);
-  matrix = m4.scale(matrix, scale[0], scale[1], scale[2]);
-  // matrix = m4.multiply(projectionMatrix, matrix);
-
-  gl.uniformMatrix4fv(matrixLocation, false, matrix);
-  gl.drawArrays(gl.TRIANGLES, 0, 16 * 6);
 }
 
 function resetDefault() {
@@ -248,138 +259,3 @@ function resetDefault() {
   document.getElementById("translateZ-value").innerHTML = 0;
   drawScene();
 }
-
-function setGeometry(gl) {
-  var array = [
-    // left column front
-    0, 0, 0, 0, 150, 0, 30, 0, 0, 0, 150, 0, 30, 150, 0, 30, 0, 0,
-
-    // top rung front
-    30, 0, 0, 30, 30, 0, 100, 0, 0, 30, 30, 0, 100, 30, 0, 100, 0, 0,
-
-    // middle rung front
-    30, 60, 0, 30, 90, 0, 67, 60, 0, 30, 90, 0, 67, 90, 0, 67, 60, 0,
-
-    // left column back
-    0, 0, 30, 30, 0, 30, 0, 150, 30, 0, 150, 30, 30, 0, 30, 30, 150, 30,
-
-    // top rung back
-    30, 0, 30, 100, 0, 30, 30, 30, 30, 30, 30, 30, 100, 0, 30, 100, 30, 30,
-
-    // middle rung back
-    30, 60, 30, 67, 60, 30, 30, 90, 30, 30, 90, 30, 67, 60, 30, 67, 90, 30,
-
-    // top
-    0, 0, 0, 100, 0, 0, 100, 0, 30, 0, 0, 0, 100, 0, 30, 0, 0, 30,
-
-    // top rung right
-    100, 0, 0, 100, 30, 0, 100, 30, 30, 100, 0, 0, 100, 30, 30, 100, 0, 30,
-
-    // under top rung
-    30, 30, 0, 30, 30, 30, 100, 30, 30, 30, 30, 0, 100, 30, 30, 100, 30, 0,
-
-    // between top rung and middle
-    30, 30, 0, 30, 60, 30, 30, 30, 30, 30, 30, 0, 30, 60, 0, 30, 60, 30,
-
-    // top of middle rung
-    30, 60, 0, 67, 60, 30, 30, 60, 30, 30, 60, 0, 67, 60, 0, 67, 60, 30,
-
-    // right of middle rung
-    67, 60, 0, 67, 90, 30, 67, 60, 30, 67, 60, 0, 67, 90, 0, 67, 90, 30,
-
-    // bottom of middle rung.
-    30, 90, 0, 30, 90, 30, 67, 90, 30, 30, 90, 0, 67, 90, 30, 67, 90, 0,
-
-    // right of bottom
-    30, 90, 0, 30, 150, 30, 30, 90, 30, 30, 90, 0, 30, 150, 0, 30, 150, 30,
-
-    // bottom
-    0, 150, 0, 0, 150, 30, 30, 150, 30, 0, 150, 0, 30, 150, 30, 30, 150, 0,
-
-    // left side
-    0, 0, 0, 0, 0, 30, 0, 150, 30, 0, 0, 0, 0, 150, 30, 0, 150, 0,
-  ]
-  for (var i = 0; i < array.length; i++) {
-    array[i] = (array[i] - 200) * 20 / 400;
-  }
-
-  gl.bufferData(
-    gl.ARRAY_BUFFER,
-    new Float32Array(array),
-    gl.STATIC_DRAW
-  );
-}
-// Fill the buffer with colors for the 'F'.
-function setColors(gl) {
-  gl.bufferData(
-    gl.ARRAY_BUFFER,
-    new Uint8Array([
-      // left column front
-      200, 70, 120, 200, 70, 120, 200, 70, 120, 200, 70, 120, 200, 70, 120, 200,
-      70, 120,
-
-      // top rung front
-      200, 70, 120, 200, 70, 120, 200, 70, 120, 200, 70, 120, 200, 70, 120, 200,
-      70, 120,
-
-      // middle rung front
-      200, 70, 120, 200, 70, 120, 200, 70, 120, 200, 70, 120, 200, 70, 120, 200,
-      70, 120,
-
-      // left column back
-      80, 70, 200, 80, 70, 200, 80, 70, 200, 80, 70, 200, 80, 70, 200, 80, 70,
-      200,
-
-      // top rung back
-      80, 70, 200, 80, 70, 200, 80, 70, 200, 80, 70, 200, 80, 70, 200, 80, 70,
-      200,
-
-      // middle rung back
-      80, 70, 200, 80, 70, 200, 80, 70, 200, 80, 70, 200, 80, 70, 200, 80, 70,
-      200,
-
-      // top
-      70, 200, 210, 70, 200, 210, 70, 200, 210, 70, 200, 210, 70, 200, 210, 70,
-      200, 210,
-
-      // top rung right
-      200, 200, 70, 200, 200, 70, 200, 200, 70, 200, 200, 70, 200, 200, 70, 200,
-      200, 70,
-
-      // under top rung
-      210, 100, 70, 210, 100, 70, 210, 100, 70, 210, 100, 70, 210, 100, 70, 210,
-      100, 70,
-
-      // between top rung and middle
-      210, 160, 70, 210, 160, 70, 210, 160, 70, 210, 160, 70, 210, 160, 70, 210,
-      160, 70,
-
-      // top of middle rung
-      70, 180, 210, 70, 180, 210, 70, 180, 210, 70, 180, 210, 70, 180, 210, 70,
-      180, 210,
-
-      // right of middle rung
-      100, 70, 210, 100, 70, 210, 100, 70, 210, 100, 70, 210, 100, 70, 210, 100,
-      70, 210,
-
-      // bottom of middle rung.
-      76, 210, 100, 76, 210, 100, 76, 210, 100, 76, 210, 100, 76, 210, 100, 76,
-      210, 100,
-
-      // right of bottom
-      140, 210, 80, 140, 210, 80, 140, 210, 80, 140, 210, 80, 140, 210, 80, 140,
-      210, 80,
-
-      // bottom
-      90, 130, 110, 90, 130, 110, 90, 130, 110, 90, 130, 110, 90, 130, 110, 90,
-      130, 110,
-
-      // left side
-      160, 160, 220, 160, 160, 220, 160, 160, 220, 160, 160, 220, 160, 160, 220,
-      160, 160, 220,
-    ]),
-    gl.STATIC_DRAW
-  );
-}
-
-drawScene();
