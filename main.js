@@ -19,7 +19,7 @@ var cameraRadius = 20;
 var cameraTarget = [0, 0, 0];
 var cameraPosition = [0, 0, -5];
 
-var lightDirection = [0.5, 0.3, -1];
+var lightDirection = [0.5, 0.7, -1];
 
 var fieldOfView = (60 * Math.PI) / 180; // in radians
 var zNear = 1;
