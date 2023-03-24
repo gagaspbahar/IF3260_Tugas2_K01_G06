@@ -365,5 +365,27 @@ function updateData() {
   animationActive = hollowObject.animation;
   var textAnime = animationActive ? "On" : "Off";
   document.getElementById("shading-label").innerHTML = textAnime;
-  
+}
+
+function saveModel() {
+  let rx, ry, rz;
+  rx = document.getElementById("angleX").value;
+  ry = document.getElementById("angleY").value;
+  rz = document.getElementById("angleZ").value;
+  hollowObject.slider = [rx, ry, rz, translation[0], translation[1], translation[2], scale[0], scale[1], scale[2]];
+  hollowObject.projection = projectionMode;
+  hollowObject.rotateAxis = rotateAxis;
+  hollowObject.shading = shadingEnabled;
+  hollowObject.animation = animationActive;
+
+  let data = JSON.stringify(hollowObject);
+  download("model.json", 'text/plain', data);
+}
+
+function download(fileName, contentType, content) {
+  var a = document.createElement("a");
+  var file = new Blob([content], {type: contentType});
+  a.href = URL.createObjectURL(file);
+  a.download = fileName;
+  a.click();
 }
