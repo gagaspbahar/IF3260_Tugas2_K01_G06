@@ -1,388 +1,8 @@
-const hollowObject = {
-  "points":[
-      [-5,-4,-4],
-      [-4,-4,-4],
-      [-4,4,-4],
-      [-5,4,-4],
-      [-4,4,-5],
-      [-4,4,-4],
-      [-4,-4,-4],
-      [-4,-4,-5],
-      [-5,-5,-5],
-      [-5,-4,-4],
-      [-5,4,-4],
-      [-5,5,-5],
-      [-5,5,-5],
-      [-4,4,-5],
-      [-4,-4,-5],
-      [-5,-5,-5],
-      [5,4,-4],
-      [4,4,-4],
-      [4,-4,-4],
-      [5,-4,-4],
-      [4,-4,-5],
-      [4,-4,-4],
-      [4,4,-4],
-      [4,4,-5],
-      [5,5,-5],
-      [5,4,-4],
-      [5,-4,-4],
-      [5,-5,-5],
-      [5,-5,-5],
-      [4,-4,-5],
-      [4,4,-5],
-      [5,5,-5],
-      [-5,4,4],
-      [-4,4,4],
-      [-4,-4,4],
-      [-5,-4,4],
-      [-4,-4,5],
-      [-4,-4,4],
-      [-4,4,4],
-      [-4,4,5],
-      [-5,5,5],
-      [-5,4,4],
-      [-5,-4,4],
-      [-5,-5,5],
-      [-5,-5,5],
-      [-4,-4,5],
-      [-4,4,5],
-      [-5,5,5],
-      [5,-4,4],
-      [4,-4,4],
-      [4,4,4],
-      [5,4,4],
-      [4,4,5],
-      [4,4,4],
-      [4,-4,4],
-      [4,-4,5],
-      [5,-5,5],
-      [5,-4,4],
-      [5,4,4],
-      [5,5,5],
-      [5,5,5],
-      [4,4,5],
-      [4,-4,5],
-      [5,-5,5],
-      [4,-5,-4],
-      [4,-4,-4],
-      [-4,-4,-4],
-      [-4,-5,-4],
-      [-4,-4,-5],
-      [-4,-4,-4],
-      [4,-4,-4],
-      [4,-4,-5],
-      [5,-5,-5],
-      [4,-5,-4],
-      [-4,-5,-4],
-      [-5,-5,-5],
-      [-5,-5,-5],
-      [-4,-4,-5],
-      [4,-4,-5],
-      [5,-5,-5],
-      [-4,5,-4],
-      [-4,4,-4],
-      [4,4,-4],
-      [4,5,-4],
-      [4,4,-5],
-      [4,4,-4],
-      [-4,4,-4],
-      [-4,4,-5],
-      [-5,5,-5],
-      [-4,5,-4],
-      [4,5,-4],
-      [5,5,-5],
-      [5,5,-5],
-      [4,4,-5],
-      [-4,4,-5],
-      [-5,5,-5],
-      [-4,-5,4],
-      [-4,-4,4],
-      [4,-4,4],
-      [4,-5,4],
-      [4,-4,5],
-      [4,-4,4],
-      [-4,-4,4],
-      [-4,-4,5],
-      [-5,-5,5],
-      [-4,-5,4],
-      [4,-5,4],
-      [5,-5,5],
-      [5,-5,5],
-      [4,-4,5],
-      [-4,-4,5],
-      [-5,-5,5],
-      [4,5,4],
-      [4,4,4],
-      [-4,4,4],
-      [-4,5,4],
-      [-4,4,5],
-      [-4,4,4],
-      [4,4,4],
-      [4,4,5],
-      [5,5,5],
-      [4,5,4],
-      [-4,5,4],
-      [-5,5,5],
-      [-5,5,5],
-      [-4,4,5],
-      [4,4,5],
-      [5,5,5],
-      [-5,4,-4],
-      [-4,4,-4],
-      [-4,4,4],
-      [-5,4,4],
-      [-4,5,4],
-      [-4,4,4],
-      [-4,4,-4],
-      [-4,5,-4],
-      [-5,5,-5],
-      [-5,4,-4],
-      [-5,4,4],
-      [-5,5,5],
-      [-5,5,5],
-      [-4,5,4],
-      [-4,5,-4],
-      [-5,5,-5],
-      [5,4,4],
-      [4,4,4],
-      [4,4,-4],
-      [5,4,-4],
-      [4,5,-4],
-      [4,4,-4],
-      [4,4,4],
-      [4,5,4],
-      [5,5,5],
-      [5,4,4],
-      [5,4,-4],
-      [5,5,-5],
-      [5,5,-5],
-      [4,5,-4],
-      [4,5,4],
-      [5,5,5],
-      [-5,-4,4],
-      [-4,-4,4],
-      [-4,-4,-4],
-      [-5,-4,-4],
-      [-4,-5,-4],
-      [-4,-4,-4],
-      [-4,-4,4],
-      [-4,-5,4],
-      [-5,-5,5],
-      [-5,-4,4],
-      [-5,-4,-4],
-      [-5,-5,-5],
-      [-5,-5,-5],
-      [-4,-5,-4],
-      [-4,-5,4],
-      [-5,-5,5],
-      [5,-4,-4],
-      [4,-4,-4],
-      [4,-4,4],
-      [5,-4,4],
-      [4,-5,4],
-      [4,-4,4],
-      [4,-4,-4],
-      [4,-5,-4],
-      [5,-5,-5],
-      [5,-4,-4],
-      [5,-4,4],
-      [5,-5,5],
-      [5,-5,5],
-      [4,-5,4],
-      [4,-5,-4],
-      [5,-5,-5]
-  ],
-  "rusuk":[
-      {
-          "topologi":[
-              [0,1,2,3],
-              [4,5,6,7],
-              [8,9,10,11],
-              [12,13,14,15]
-          ],
-          "color":[
-              [1,0.6,0.9,1],
-              [1,0.6,0.9,1],
-              [1,0.6,0.9,1],
-              [1,0.6,0.9,1]
-          ]
-      },
-      {
-          "topologi":[
-              [16,17,18,19],
-              [20,21,22,23],
-              [24,25,26,27],
-              [28,29,30,31]
-          ],
-          "color":[
-              [1,0.6,0.9,1],
-              [1,0.6,0.9,1],
-              [1,0.6,0.9,1],
-              [1,0.6,0.9,1]
-          ]
-      },
-      {
-          "topologi":[
-              [32,33,34,35],
-              [36,37,38,39],
-              [40,41,42,43],
-              [44,45,46,47]
-          ],
-          "color":[
-              [1,0.6,0.9,1],
-              [1,0.6,0.9,1],
-              [1,0.6,0.9,1],
-              [1,0.6,0.9,1]
-          ]
-      },
-      {
-          "topologi":[
-              [48,49,50,51],
-              [52,53,54,55],
-              [56,57,58,59],
-              [60,61,62,63]
-          ],
-          "color":[
-              [1,0.6,0.9,1],
-              [1,0.6,0.9,1],
-              [1,0.6,0.9,1],
-              [1,0.6,0.9,1]
-          ]
-      },
-      {
-          "topologi":[
-              [64,65,66,67],
-              [68,69,70,71],
-              [72,73,74,75],
-              [76,77,78,79]
-          ],
-          "color":[
-              [1,0.6,0.9,1],
-              [1,0.6,0.9,1],
-              [1,0.6,0.9,1],
-              [1,0.6,0.9,1]
-          ]
-      },
-      {
-          "topologi":[
-              [80,81,82,83],
-              [84,85,86,87],
-              [88,89,90,91],
-              [92,93,94,95]
-          ],
-          "color":[
-              [1,0.6,0.9,1],
-              [1,0.6,0.9,1],
-              [1,0.6,0.9,1],
-              [1,0.6,0.9,1]
-          ]
-      },
-      {
-          "topologi":[
-              [96,97,98,99],
-              [100,101,102,103],
-              [104,105,106,107],
-              [108,109,110,111]
-          ],
-          "color":[
-              [1,0.6,0.9,1],
-              [1,0.6,0.9,1],
-              [1,0.6,0.9,1],
-              [1,0.6,0.9,1]
-          ]
-      },
-      {
-          "topologi":[
-              [112,113,114,115],
-              [116,117,118,119],
-              [120,121,122,123],
-              [124,125,126,127]
-          ],
-          "color":[
-              [1,0.6,0.9,1],
-              [1,0.6,0.9,1],
-              [1,0.6,0.9,1],
-              [1,0.6,0.9,1]
-          ]
-      },
-      {
-          "topologi":[
-              [128,129,130,131],
-              [132,133,134,135],
-              [136,137,138,139],
-              [140,141,142,143]
-          ],
-          "color":[
-              [1,0.6,0.9,1],
-              [1,0.6,0.9,1],
-              [1,0.6,0.9,1],
-              [1,0.6,0.9,1]
-          ]
-      },
-      {
-          "topologi":[
-              [144,145,146,147],
-              [148,149,150,151],
-              [152,153,154,155],
-              [156,157,158,159]
-          ],
-          "color":[
-              [1,0.6,0.9,1],
-              [1,0.6,0.9,1],
-              [1,0.6,0.9,1],
-              [1,0.6,0.9,1]
-          ]
-      },
-      {
-          "topologi":[
-              [160,161,162,163],
-              [164,165,166,167],
-              [168,169,170,171],
-              [172,173,174,175]
-          ],
-          "color":[
-              [1,0.6,0.9,1],
-              [1,0.6,0.9,1],
-              [1,0.6,0.9,1],
-              [1,0.6,0.9,1]
-          ]
-      },
-      {
-          "topologi":[
-              [176,177,178,179],
-              [180,181,182,183],
-              [184,185,186,187],
-              [188,189,190,191]
-          ],
-          "color":[
-              [1,0.6,0.9,1],
-              [1,0.6,0.9,1],
-              [1,0.6,0.9,1],
-              [1,0.6,0.9,1]
-          ]
-      }
-  ],
-  "slider": [
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      1,
-      1,
-      1
-  ],
-  "projection" : "orthographic",
-  "shading" : false,
-  "rotate" : 0,
-  "animation" : false
-}
-
 var vertices = [];
-// var hollowObject;
+var indices = defaultIndices;
+var hollowObject = defaultObject;
 var colors = [];
+var normals = [];
 var translation = [0, 0, 0];
 var rotation = [degToRad(0), degToRad(0), degToRad(0)];
 var scale = [1, 1, 1];
@@ -398,6 +18,8 @@ var cameraAngleRadians = degToRad(0);
 var cameraRadius = 20;
 var cameraTarget = [0, 0, 0];
 var cameraPosition = [0, 0, -5];
+
+var lightDirection = [0.5, 0.3, -1];
 
 var fieldOfView = (60 * Math.PI) / 180; // in radians
 var zNear = 1;
@@ -433,6 +55,10 @@ var resolutionUniformLocation = gl.getUniformLocation(program, "u_resolution");
 var colorUniformLocation = gl.getUniformLocation(program, "u_color");
 var colorAttributeLocation = gl.getAttribLocation(program, "a_color");
 var matrixLocation = gl.getUniformLocation(program, "u_matrix");
+var normalLocation = gl.getAttribLocation(program, "a_normal");
+var worldInverseTransposeLocation = gl.getUniformLocation(program, "u_worldInverseTranspose");
+var reverseLightDirectionLocation = gl.getUniformLocation(program, "u_reverseLightDirection");
+var useLightingLocation = gl.getUniformLocation(program, "u_useLighting");
 
 // Set viewport
 gl.viewport(0, 0, canvas.width, canvas.height);
@@ -534,7 +160,6 @@ const updateCameraRadius = () => {
 
 const updateProjectionMode = () => {
   projectionMode = document.getElementById("projection-type").value;
-  console.log(projectionMode);
   drawScene();
 };
 
@@ -587,48 +212,20 @@ function render(vertice, color) {
   gl.vertexAttribPointer(colorAttributeLocation, 4, gl.FLOAT, false, 0, 0);
   gl.enableVertexAttribArray(colorAttributeLocation);
 
+  var normalBuffer = gl.createBuffer();
+  var normal = getVectorNormals(vertice);
+  gl.bindBuffer(gl.ARRAY_BUFFER, normalBuffer);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(normal), gl.STATIC_DRAW);
+  gl.vertexAttribPointer(normalLocation, 3, gl.FLOAT, false, 0, 0);
+  gl.enableVertexAttribArray(normalLocation);
+
+  gl.uniform1i(useLightingLocation, shadingEnabled);
+
   const indicesBuffer = gl.createBuffer();
   gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indicesBuffer);
   gl.bufferData(
     gl.ELEMENT_ARRAY_BUFFER,
-    new Uint16Array([
-      0,
-      1,
-      2,
-      0,
-      2,
-      3, // front
-      4,
-      5,
-      6,
-      4,
-      6,
-      7, // back
-      8,
-      9,
-      10,
-      8,
-      10,
-      11, // top
-      12,
-      13,
-      14,
-      12,
-      14,
-      15, // bottom
-      16,
-      17,
-      18,
-      16,
-      18,
-      19, // right
-      20,
-      21,
-      22,
-      20,
-      22,
-      23, // left
-    ]),
+    new Uint16Array(indices),
     gl.STATIC_DRAW
   );
 }
@@ -637,25 +234,33 @@ function loadObject() {
   let vertice = hollowObject.points;
   let vertexSorted = [];
   let colorSorted = [];
+  // let normalSorted = [];
   for (let i = 0; i < hollowObject.rusuk.length; i++) {
     let point = hollowObject.rusuk[i];
     let tmpColor = [];
     let position = [];
+    // let normal = [];
     for (let j = 0; j < point.topologi.length; j++) {
       position = position.concat(vertice[point.topologi[j][0]]);
       position = position.concat(vertice[point.topologi[j][1]]);
       position = position.concat(vertice[point.topologi[j][2]]);
       position = position.concat(vertice[point.topologi[j][3]]);
       tmpColor.push(point.color[j]);
+      // normal = normal.concat(calculateNormalVector(vertice[point.topologi[j][0]], vertice[point.topologi[j][1]], vertice[point.topologi[j][2]]));
     }
     colorSorted.push(tmpColor);
     vertexSorted.push(position);
+    // normalSorted.push(normal);
   }
   vertices = vertexSorted;
   colors = colorSorted;
+  // normals = normalSorted;
+
   updateData();
   drawScene();
+  // console.log(normals)
 }
+
 
 function onChange(event) {
   var reader = new FileReader();
@@ -682,6 +287,8 @@ function drawScene() {
   gl.enable(gl.CULL_FACE);
   gl.enable(gl.DEPTH_TEST);
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+
+
   for (let i = 0; i < vertices.length; i++) {
     var count = vertices[i].length / 2;
     render(vertices[i], colors[i]);
@@ -701,7 +308,6 @@ function drawScene() {
     cameraMatrix = m4.lookAt(cameraPosition, cameraTarget, up, zoom);
     
     var viewMatrix = m4.inverse(cameraMatrix);
-    console.log(viewMatrix)
     // console.log(cameraMatrix)
     var projectionMatrix = m4.identity();
     // console.log(viewMatrix)
@@ -730,9 +336,14 @@ function drawScene() {
     matrix = m4.multiply(projectionMatrix, matrix);
     // matrix = m4.multiply(projectionMatrix, matrix);
 
+    var worldMatrix = matrix;
+    var worldInverseMatrix = m4.inverse(worldMatrix);
+    var worldInverseTransposeMatrix = m4.transpose(worldInverseMatrix);
 
 
     gl.uniformMatrix4fv(matrixLocation, false, matrix);
+    gl.uniformMatrix4fv(worldInverseTransposeLocation, false, worldInverseTransposeMatrix);
+    gl.uniform3fv(reverseLightDirectionLocation, normalize(lightDirection));
     gl.drawElements(this.gl.TRIANGLES, count, gl.UNSIGNED_SHORT, 0);
   }
   if (animationActive) {
