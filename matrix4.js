@@ -166,6 +166,20 @@ var m4 = {
     ];
   },
 
+  oblique: function(left, right, bottom, top, near, far, theta, phi) {
+    theta = degToRad(theta);
+    phi = degToRad(phi);
+    H = [
+      1, 0, 0, 0,
+      0, 1, 0, 0,
+      -1/Math.tan(theta), -1/Math.tan(phi), 1, 0,
+      0, 0, 0, 1
+    ];
+    ST = this.orthographic(left, right, bottom, top, near, far);
+    console.log(m4.multiply(H, ST));
+    return m4.multiply(H, ST);
+  },
+
   identity: function() {
     return [
        1, 0, 0, 0,

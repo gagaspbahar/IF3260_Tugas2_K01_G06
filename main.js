@@ -677,6 +677,7 @@ function drawScene() {
     } else if (projectionMode == "perspective") {
       matrix = m4.perspective(fieldOfView, aspect, zNear, zFar);
     } else if (projectionMode == "oblique") {
+      matrix = m4.oblique(left, right, bottom, topFov, near, far, 75, 85);
     }
 
     matrix = m4.translate(
