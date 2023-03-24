@@ -175,18 +175,18 @@ var m4 = {
     ];
   },
 
-  lookAt: function (cameraPosition, target, up) {
+  lookAt: function (cameraPosition, target, up, zoom) {
     var zAxis = normalize(subtractVectors(cameraPosition, target));
     var xAxis = normalize(cross(up, zAxis));
     var yAxis = normalize(cross(zAxis, xAxis));
 
     return [
-      xAxis[0],
+      xAxis[0] * zoom,
       xAxis[1],
       xAxis[2],
       0,
       yAxis[0],
-      yAxis[1],
+      yAxis[1] * zoom,
       yAxis[2],
       0,
       zAxis[0],

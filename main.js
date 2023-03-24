@@ -395,8 +395,9 @@ var rotateZ = 0;
 var rotateAxis = 0;
 var reqAnime = null;
 var cameraAngleRadians = degToRad(0);
-var cameraRadius = 200;
+var cameraRadius = 20;
 var cameraTarget = [0, 0, 0];
+var cameraPosition = [0, 0, -5];
 
 var fieldOfView = (60 * Math.PI) / 180; // in radians
 var zNear = 1;
@@ -505,7 +506,30 @@ const updateTranslateZ = () => {
 
 const updateCameraX = () => {
   var cameraX = parseFloat(document.getElementById("cameraX").value);
+  cameraPosition[0] = cameraX;
+  document.getElementById("cameraX-value").innerHTML = cameraX;
+  drawScene();
+}
 
+const updateCameraY = () => {
+  var cameraY = parseFloat(document.getElementById("cameraY").value);
+  cameraPosition[1] = cameraY;
+  document.getElementById("cameraY-value").innerHTML = cameraY;
+  drawScene();
+}
+
+const updateCameraZ = () => {
+  var cameraZ = parseFloat(document.getElementById("cameraZ").value);
+  cameraPosition[2] = cameraZ;
+  document.getElementById("cameraZ-value").innerHTML = cameraZ;
+  drawScene();
+}
+
+const updateCameraRadius = () => {
+  var cameraRadiusTemp = parseFloat(document.getElementById("cameraRadius").value);
+  cameraRadius = cameraRadiusTemp;
+  document.getElementById("cameraRadius-value").innerHTML = cameraRadius;
+  drawScene();
 }
 
 const updateProjectionMode = () => {
@@ -664,18 +688,29 @@ function drawScene() {
     var matrix = m4.identity();
     // var projectionMatrix = m4.projection(gl.canvas.clientWidth, gl.canvas.clientHeight, 400);
 
-    var cameraMatrix = m4.yRotation(cameraAngleRadians);
-    cameraMatrix = m4.translate(cameraMatrix, 0, 0, cameraRadius * 1.5);
-    cameraPosition = [cameraMatrix[12], cameraMatrix[13], cameraMatrix[14]];
+    // var cameraMatrix = m4.yRotation(cameraAngleRadians);
+    // cameraMatrix = m4.translate(cameraMatrix, 0, 0, cameraRadius * 1.5);
+    // cameraPosition = [cameraMatrix[12], cameraMatrix[13], cameraMatrix[14]];
 
-    cameraMatrix = m4.lookAt(cameraPosition, cameraTarget, up);
+    // cameraMatrix = m4.lookAt(cameraPosition, cameraTarget, up);
+    // var viewMatrix = m4.inverse(cameraMatrix);
+
+
+    var cameraMatrix = m4.identity();
+    var zoom = cameraRadius / 20;
+    cameraMatrix = m4.lookAt(cameraPosition, cameraTarget, up, zoom);
+    
     var viewMatrix = m4.inverse(cameraMatrix);
-    matrix = m4.multiply(matrix, viewMatrix);
+    console.log(viewMatrix)
+    // console.log(cameraMatrix)
+    var projectionMatrix = m4.identity();
+    // console.log(viewMatrix)
+
 
     if (projectionMode == "orthographic") {
-      matrix = m4.orthographic(left, right, bottom, topFov, near, far);
+      projectionMatrix = m4.orthographic(left, right, bottom, topFov, near, far);
     } else if (projectionMode == "perspective") {
-      matrix = m4.perspective(fieldOfView, aspect, zNear, zFar);
+      projectionMatrix = m4.perspective(fieldOfView, aspect, zNear, zFar);
     } else if (projectionMode == "oblique") {
     }
 
@@ -689,7 +724,12 @@ function drawScene() {
     matrix = m4.yRotate(matrix, rotation[1]);
     matrix = m4.zRotate(matrix, rotation[2]);
     matrix = m4.scale(matrix, scale[0], scale[1], scale[2]);
+
+    matrix = m4.multiply(viewMatrix, matrix);
+    matrix = m4.multiply(projectionMatrix, matrix);
     // matrix = m4.multiply(projectionMatrix, matrix);
+
+
 
     gl.uniformMatrix4fv(matrixLocation, false, matrix);
     gl.drawElements(this.gl.TRIANGLES, count, gl.UNSIGNED_SHORT, 0);
@@ -724,6 +764,7 @@ function resetDefault() {
   rotation = [0, 0, 0];
   scale = [1, 1, 1];
   translation = [0, 0, 0];
+  cameraPosition = [0, 0, 5];
   document.getElementById("angleX").value = 0;
   document.getElementById("angleY").value = 0;
   document.getElementById("angleZ").value = 0;
@@ -733,6 +774,10 @@ function resetDefault() {
   document.getElementById("translateX").value = 0;
   document.getElementById("translateY").value = 0;
   document.getElementById("translateZ").value = 0;
+  document.getElementById("cameraX").value = 0;
+  document.getElementById("cameraY").value = 0;
+  document.getElementById("cameraZ").value = 5;
+  document.getElementById("cameraRadius").value = 20;
   document.getElementById("angleX-value").innerHTML = 0;
   document.getElementById("angleY-value").innerHTML = 0;
   document.getElementById("angleZ-value").innerHTML = 0;
@@ -742,6 +787,11 @@ function resetDefault() {
   document.getElementById("translateX-value").innerHTML = 0;
   document.getElementById("translateY-value").innerHTML = 0;
   document.getElementById("translateZ-value").innerHTML = 0;
+  document.getElementById("cameraX-value").innerHTML = 0;
+  document.getElementById("cameraY-value").innerHTML = 0;
+  document.getElementById("cameraZ-value").innerHTML = 5;
+  document.getElementById("cameraRadius-value").innerHTML = 20;
+
   drawScene();
 }
 
