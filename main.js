@@ -1,10 +1,17 @@
 var vertices = [];
+var hollowObject;
 var colors = [];
 var translation = [0, 0, 0];
 var rotation = [degToRad(0), degToRad(0), degToRad(0)];
 var scale = [1, 1, 1];
 var projectionMode = "orthographic";
 var shadingEnabled = false;
+var animationActive = false;
+var rotateX = 0;
+var rotateY = 0;
+var rotateZ = 0;
+var rotateAxis = 0;
+var reqAnime = null;
 
 // Initialize the WebGL context
 var canvas = document.querySelector("#gl-canvas");
@@ -111,6 +118,25 @@ const toggleShading = () => {
   drawScene();
 };
 
+const toggleAnimation = () => {
+  animationActive = !animationActive;
+  var text = animationActive ? "On" : "Off";
+  document.getElementById("animation-label").innerHTML = text;
+  drawScene();
+};
+
+const rotateToX = () => {
+  rotateAxis = 0;
+};
+
+const rotateToY = () => {
+  rotateAxis = 1;
+};
+
+const rotateToZ = () => {
+  rotateAxis = 2;
+};
+
 function render(vertice, color) {
   var buffer = gl.createBuffer();
   // var obj = loadObject();
@@ -192,6 +218,9 @@ function onReaderLoad(event){
 document.getElementById('load').addEventListener('change', onChange); 
 
 function drawScene() {
+  if (reqAnime) {
+    cancelAnimationFrame(reqAnime);
+  }
   // Clear the canvas
   gl.clearColor(0, 0, 0, 0);
   gl.clear(gl.COLOR_BUFFER_BIT);
@@ -239,6 +268,30 @@ function drawScene() {
     gl.uniformMatrix4fv(matrixLocation, false, matrix);
     gl.drawElements(this.gl.TRIANGLES, count, gl.UNSIGNED_SHORT, 0);
   }
+  if (animationActive) {
+    if (rotateAxis == 0) {
+      if (rotateX == 360 ) {
+        rotateX = 0;
+      }
+      rotateX+=1;
+      rotation[0] = degToRad(rotateX);
+    }
+    else if (rotateAxis == 1) {
+      if (rotateY == 360 ) {
+        rotateY = 0;
+      }
+      rotateY+=1;
+      rotation[1] = degToRad(rotateY);
+    }
+    else {
+      if (rotateZ == 360 ) {
+        rotateZ = 0;
+      }
+      rotateZ+=1;
+      rotation[2] = degToRad(rotateZ);
+    }
+    reqAnime = requestAnimationFrame(drawScene);
+}
 }
 
 function resetDefault() {
