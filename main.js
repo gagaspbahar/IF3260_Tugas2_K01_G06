@@ -120,9 +120,17 @@ function render(vertice, color) {
   gl.vertexAttribPointer(positionAttributeLocation, 3, gl.FLOAT, false, 0, 0);
   gl.enableVertexAttribArray(positionAttributeLocation);
 
+  var faceColors = [];
+  for (var j = 0; j < color.length; ++j) {
+      const c = color[j];
+      for (var i = 0; i < 4; ++i) {
+          faceColors = faceColors.concat(c);
+      }
+  }
+
   var colorBuffer = gl.createBuffer();
   gl.bindBuffer(gl.ARRAY_BUFFER, colorBuffer);
-  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(color), gl.STATIC_DRAW);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(faceColors), gl.STATIC_DRAW);
   gl.vertexAttribPointer(
     colorAttributeLocation,
     4,
@@ -160,7 +168,7 @@ function loadObject() {
       position = position.concat(vertice[point.topologi[j][1]]);
       position = position.concat(vertice[point.topologi[j][2]]);
       position = position.concat(vertice[point.topologi[j][3]]);
-      tmpColor = tmpColor.concat(point.color[j]);
+      tmpColor.push(point.color[j]);
     }
     colorSorted.push(tmpColor);
     vertexSorted.push(position);
@@ -194,7 +202,6 @@ function drawScene() {
   gl.enable(gl.CULL_FACE);
   gl.enable(gl.DEPTH_TEST);
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-
   for (let i = 0; i < vertices.length; i++) {
     const fieldOfView = (60 * Math.PI) / 180; // in radians
     const aspect = gl.canvas.clientWidth / gl.canvas.clientHeight;
@@ -211,7 +218,6 @@ function drawScene() {
     var near = 0.1;
     var far = 100;
     var count = vertices[i].length/2;
-
     render(vertices[i], colors[i]);
     var matrix = m4.identity();
     // var projectionMatrix = m4.projection(gl.canvas.clientWidth, gl.canvas.clientHeight, 400);
