@@ -201,6 +201,7 @@ function loadObject() {
   }
   vertices = vertexSorted;
   colors = colorSorted;
+  updateData();
   drawScene();
 }
 
@@ -317,4 +318,52 @@ function resetDefault() {
   document.getElementById("translateY-value").innerHTML = 0;
   document.getElementById("translateZ-value").innerHTML = 0;
   drawScene();
+}
+
+function updateData() {
+  let data = hollowObject.slider
+  document.getElementById("angleX").value = data[0];
+  document.getElementById("angleY").value = data[1];
+  document.getElementById("angleZ").value = data[2];
+  document.getElementById("angleX-value").innerHTML = data[0];
+  document.getElementById("angleY-value").innerHTML = data[1];
+  document.getElementById("angleZ-value").innerHTML = data[2];
+  rotation[0] = degToRad(data[0]);
+  rotation[1] = degToRad(data[1]);
+  rotation[2] = degToRad(data[2]);
+
+  document.getElementById("translateX-value").innerHTML = data[3];
+  document.getElementById("translateY-value").innerHTML = data[4];
+  document.getElementById("translateZ-value").innerHTML = data[5];
+  
+  document.getElementById("translateX").value = data[3];
+  document.getElementById("translateY").value = data[4];
+  document.getElementById("translateZ").value = data[5];
+  translation[0] = data[3];
+  translation[1] = data[4];
+  translation[2] = data[5];
+
+  document.getElementById("scaleX").value = data[6]; 
+  document.getElementById("scaleY").value = data[7];
+  document.getElementById("scaleZ").value = data[8];
+  document.getElementById("scaleX-value").innerHTML = data[6];
+  document.getElementById("scaleY-value").innerHTML = data[7];
+  document.getElementById("scaleZ-value").innerHTML = data[8];
+  scale[0] = data[6];
+  scale[1] = data[7];
+  scale[2] = data[8];
+
+  document.querySelector('#projection-type').value = hollowObject.projection;
+  projectionMode = hollowObject.projection;
+
+  rotateAxis = hollowObject.rotateAxis;
+
+  shadingEnabled = hollowObject.shading;
+  var textShading = shadingEnabled ? "On" : "Off";
+  document.getElementById("shading-label").innerHTML = textShading;
+
+  animationActive = hollowObject.animation;
+  var textAnime = animationActive ? "On" : "Off";
+  document.getElementById("shading-label").innerHTML = textAnime;
+  
 }

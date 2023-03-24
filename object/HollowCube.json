@@ -362,5 +362,20 @@
                 [1,0.6,0.9,1]
             ]
         }
-    ]
+    ],
+    "slider": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1
+    ],
+    "projection" : "orthographic",
+    "shading" : false,
+    "rotate" : 0,
+    "animation" : false
 }
