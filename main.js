@@ -135,6 +135,7 @@ function render() {
 }
 
 function loadObject() {
+  console.log(hollowObject);
   let vertices = hollowObject.points;
   let vertexSorted = [];
   let colorSorted = [];
@@ -158,6 +159,21 @@ function loadObject() {
     colors: colorSorted
   }
 }
+
+function onChange(event) {
+  var reader = new FileReader();
+  reader.onload = onReaderLoad;
+  reader.readAsText(event.target.files[0]);
+}
+
+function onReaderLoad(event){
+  hollowObject = JSON.parse(event.target.result);
+  loadObject();
+}
+
+document.getElementById('load').addEventListener('change', onChange);
+
+
 
 function drawScene() {
   // Clear the canvas
