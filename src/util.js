@@ -445,9 +445,11 @@ function matrixMultiplication(matrixA, matrixB) {
     return result;
 }
 
-function rotationObject(object, rotateX, rotateY, rotateZ, centerPositionX, centerPositionY, centerPositionZ) {
+function rotationObject(object, rotateX, rotateY, rotateZ, centerPositionX, centerPositionY, centerPositionZ, scaleX, scaleY, scaleZ, translateX, translateY, translateZ) {
     let matrixResult = [], mTmp = [];
     var matrix = m4.identity();
+    matrix = m4.translate(matrix, translateX, translateY, translateZ);
+    matrix = m4.scale(matrix, scaleX, scaleY, scaleZ);
     matrix = m4.translate(matrix, centerPositionX, centerPositionY, centerPositionZ);
     matrix = m4.xyzRotate(matrix, rotateX, rotateY, rotateZ);
     matrix = m4.translate(matrix, -centerPositionX, -centerPositionY, -centerPositionZ);
@@ -470,7 +472,7 @@ function scaleObject(object, scaleX, scaleY, scaleZ, centerPositionX, centerPosi
     let matrixResult = [], mTmp = [];
     let matrix = m4.identity();
     matrix = m4.translate(matrix, centerPositionX, centerPositionY, centerPositionZ);
-    matrix = m4.scale(matrix, scaleX, scaleY, scaleZ);
+    
     matrix = m4.translate(matrix, -centerPositionX, -centerPositionY, -centerPositionZ);
     for (let i = 0; i < matrix.length; i++) {
         mTmp.push(matrix[i]);
