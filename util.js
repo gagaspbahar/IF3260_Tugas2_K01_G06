@@ -416,22 +416,7 @@ const defaultObject = {
               [1,0.6,0.9,1]
           ]
       }
-  ],
-  "slider": [
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      1,
-      1,
-      1
-  ],
-  "projection" : "orthographic",
-  "shading" : false,
-  "rotate" : 0,
-  "animation" : false
+  ]
 }
 
 // indices for the 6 faces of a cube
@@ -444,3 +429,67 @@ const defaultIndices = [
   16, 17, 18,     16, 18, 19,   // right
   20, 21, 22,     20, 22, 23,   // left
 ];
+
+function matrixMultiplication(matrixA, matrixB) {
+    const result = [];
+    for (let i = 0; i < matrixA.length; i++) {
+        result[i] = [];
+        for (let j = 0; j < matrixB[0].length; j++) {
+            let sum = 0;
+            for (let k = 0; k < matrixA[0].length; k++) {
+                sum += matrixA[i][k] * matrixB[k][j];
+            }
+            result[i][j] = sum;
+        }
+    }
+    return result;
+}
+
+function rotationObject(object, rotateX, rotateY, rotateZ) {
+    let matrixResult = [], mTmp = [];
+    var matrix = m4.identity();
+    matrix = m4.xyzRotate(matrix, rotateX, rotateY, rotateZ);
+    for (let i = 0; i < matrix.length; i++) {
+        mTmp.push(matrix[i]);
+        if (mTmp.length == 4) {
+            matrixResult.push(mTmp);
+            mTmp = [];
+        }
+    }
+    for (let i = 0; i < object.points.length; i++) {
+        let point = object.points[i];
+        let matrixObject = [[point[0], point[1], point[2], 1]];
+        let result = matrixMultiplication(matrixObject, matrixResult);
+        object.points[i] = [result[0][0], result[0][1], result[0][2]];
+    }
+}
+
+function scaleObject(object, scaleX, scaleY, scaleZ) {
+    let matrixResult = [], mTmp = [];
+    let matrix = m4.identity();
+    matrix = m4.scale(matrix, scaleX, scaleY, scaleZ);
+    for (let i = 0; i < matrix.length; i++) {
+        mTmp.push(matrix[i]);
+        if (mTmp.length == 4) {
+            matrixResult.push(mTmp);
+            mTmp = [];
+        }
+    }
+    for (let i = 0; i < object.points.length; i++) {
+        let point = object.points[i];
+        let matrixObject = [[point[0], point[1], point[2], 1]];
+        let result = matrixMultiplication(matrixObject, matrixResult);
+        object.points[i] = [result[0][0], result[0][1], result[0][2]];
+
+    }
+}
+
+function translationObject(object, positionX, positionY, positionZ) {
+    for (let i = 0; i < object.points.length; i++) {
+        object.points[i] = [
+            object.points[i][0] + positionX,
+            object.points[i][1] + positionY,
+            object.points[i][2] + positionZ,
+        ];
+    }
+}
