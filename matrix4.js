@@ -176,7 +176,6 @@ var m4 = {
       0, 0, 0, 1
     ];
     ST = this.orthographic(left, right, bottom, top, near, far);
-    console.log(m4.multiply(H, ST));
     return m4.multiply(H, ST);
   },
 
