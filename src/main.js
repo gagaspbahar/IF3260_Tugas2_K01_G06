@@ -232,18 +232,18 @@ function loadObject() {
   let vertexSorted = [];
   let colorSorted = [];
   // let normalSorted = [];
-  for (let i = 0; i < hollowObject.rusuk.length; i++) {
-    let point = hollowObject.rusuk[i];
+  for (let i = 0; i < hollowObject.edge.length; i++) {
+    let point = hollowObject.edge[i];
     let tmpColor = [];
     let position = [];
     // let normal = [];
-    for (let j = 0; j < point.topologi.length; j++) {
-      position = position.concat(vertice[point.topologi[j][0]]);
-      position = position.concat(vertice[point.topologi[j][1]]);
-      position = position.concat(vertice[point.topologi[j][2]]);
-      position = position.concat(vertice[point.topologi[j][3]]);
+    for (let j = 0; j < point.topology.length; j++) {
+      position = position.concat(vertice[point.topology[j][0]]);
+      position = position.concat(vertice[point.topology[j][1]]);
+      position = position.concat(vertice[point.topology[j][2]]);
+      position = position.concat(vertice[point.topology[j][3]]);
       tmpColor.push(point.color[j]);
-      // normal = normal.concat(calculateNormalVector(vertice[point.topologi[j][0]], vertice[point.topologi[j][1]], vertice[point.topologi[j][2]]));
+      // normal = normal.concat(calculateNormalVector(vertice[point.topology[j][0]], vertice[point.topology[j][1]], vertice[point.topology[j][2]]));
     }
     colorSorted.push(tmpColor);
     vertexSorted.push(position);
