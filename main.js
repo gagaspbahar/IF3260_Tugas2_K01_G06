@@ -408,8 +408,9 @@ function resetDefault() {
 }
 
 function saveModel() {
-  changeObjectModel();
-  let data = JSON.stringify(hollowObject);
+  var newHollowObject = JSON.parse(JSON.stringify(hollowObject));
+  updateObjectModel(newHollowObject);
+  let data = JSON.stringify(newHollowObject);
   download("model.json", 'text/plain', data);
 }
 
@@ -421,10 +422,10 @@ function download(fileName, contentType, content) {
   a.click();
 }
 
-function changeObjectModel() {
-  scaleObject(hollowObject, scale[0], scale[1], scale[2]);
-  rotationObject(hollowObject, rotation[0], rotation[1], rotation[2]);
-  translationObject(hollowObject, translation[0], translation[1], translation[2]);
+function updateObjectModel(object) {
+  scaleObject(object, scale[0], scale[1], scale[2]);
+  rotationObject(object, rotation[0], rotation[1], rotation[2], centerPosition[0], centerPosition[1], centerPosition[2]);
+  translationObject(object, translation[0], translation[1], translation[2]);
 }
 
 loadObject();
