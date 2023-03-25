@@ -17,7 +17,7 @@ var reqAnime = null;
 var cameraAngleRadians = degToRad(0);
 var cameraRadius = 20;
 var cameraTarget = [0, 0, 0];
-var cameraPosition = [0, 0, -5];
+var cameraPosition = [0, 0, 5];
 
 var lightDirection = [0.5, 0.7, -1];
 
