@@ -466,10 +466,12 @@ function rotationObject(object, rotateX, rotateY, rotateZ, centerPositionX, cent
     }
 }
 
-function scaleObject(object, scaleX, scaleY, scaleZ) {
+function scaleObject(object, scaleX, scaleY, scaleZ, centerPositionX, centerPositionY, centerPositionZ) {
     let matrixResult = [], mTmp = [];
     let matrix = m4.identity();
+    matrix = m4.translate(matrix, centerPositionX, centerPositionY, centerPositionZ);
     matrix = m4.scale(matrix, scaleX, scaleY, scaleZ);
+    matrix = m4.translate(matrix, -centerPositionX, -centerPositionY, -centerPositionZ);
     for (let i = 0; i < matrix.length; i++) {
         mTmp.push(matrix[i]);
         if (mTmp.length == 4) {

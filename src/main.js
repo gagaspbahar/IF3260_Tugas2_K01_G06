@@ -423,9 +423,9 @@ function download(fileName, contentType, content) {
 }
 
 function updateObjectModel(object) {
-  scaleObject(object, scale[0], scale[1], scale[2]);
-  rotationObject(object, rotation[0], rotation[1], rotation[2], centerPosition[0], centerPosition[1], centerPosition[2]);
   translationObject(object, translation[0], translation[1], translation[2]);
+  scaleObject(object, scale[0], scale[1], scale[2], centerPosition[0], centerPosition[1], centerPosition[2]);
+  rotationObject(object, rotation[0], rotation[1], rotation[2], centerPosition[0], centerPosition[1], centerPosition[2]);
 }
 
 loadObject();
