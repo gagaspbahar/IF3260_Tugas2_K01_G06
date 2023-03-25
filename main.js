@@ -18,6 +18,7 @@ var cameraAngleRadians = degToRad(0);
 var cameraRadius = 20;
 var cameraTarget = [0, 0, 0];
 var cameraPosition = [0, 0, 5];
+var centerPosition = [0, 0, 0];
 
 var lightDirection = [0.5, 0.7, -1];
 
@@ -107,7 +108,6 @@ const updateScaleZ = () => {
 
 const updateTranslateX = () => {
   var translateX = parseFloat(document.getElementById("translateX").value);
-  // translation[0] = toCanvasX(canvas, translateX, 10);
   translation[0] = translateX;
   document.getElementById("translateX-value").innerHTML = translateX;
   drawScene();
@@ -115,7 +115,6 @@ const updateTranslateX = () => {
 
 const updateTranslateY = () => {
   var translateY = parseFloat(document.getElementById("translateY").value);
-  // translation[1] = toCanvasY(canvas, translateY, 10);
   translation[1] = translateY;
   document.getElementById("translateY-value").innerHTML = translateY;
   drawScene();
@@ -123,9 +122,7 @@ const updateTranslateY = () => {
 
 const updateTranslateZ = () => {
   var translateZ = parseFloat(document.getElementById("translateZ").value);
-  // translation[2] = toCanvasZ(translateZ, 10);
   translation[2] = translateZ;
-  // console.log(translation[2]);
   document.getElementById("translateZ-value").innerHTML = translateZ;
   drawScene();
 };
@@ -254,9 +251,23 @@ function loadObject() {
   }
   vertices = vertexSorted;
   colors = colorSorted;
+  setCenterPosition()
   // normals = normalSorted;
   drawScene();
   // console.log(normals)
+}
+
+function setCenterPosition() {
+  let center = [0, 0, 0];
+  for (let i = 0; i < hollowObject.points.length; i++) {
+    center[0] += hollowObject.points[i][0];
+    center[1] += hollowObject.points[i][1];
+    center[2] += hollowObject.points[i][2];
+  }
+  center[0] /= hollowObject.points.length;
+  center[1] /= hollowObject.points.length;
+  center[2] /= hollowObject.points.length;
+  centerPosition = center;
 }
 
 
@@ -291,14 +302,6 @@ function drawScene() {
     var count = vertices[i].length / 2;
     render(vertices[i], colors[i]);
     var matrix = m4.identity();
-    // var projectionMatrix = m4.projection(gl.canvas.clientWidth, gl.canvas.clientHeight, 400);
-
-    // var cameraMatrix = m4.yRotation(cameraAngleRadians);
-    // cameraMatrix = m4.translate(cameraMatrix, 0, 0, cameraRadius * 1.5);
-    // cameraPosition = [cameraMatrix[12], cameraMatrix[13], cameraMatrix[14]];
-
-    // cameraMatrix = m4.lookAt(cameraPosition, cameraTarget, up);
-    // var viewMatrix = m4.inverse(cameraMatrix);
 
 
     var cameraMatrix = m4.identity();
@@ -306,10 +309,7 @@ function drawScene() {
     cameraMatrix = m4.lookAt(cameraPosition, cameraTarget, up, zoom);
     
     var viewMatrix = m4.inverse(cameraMatrix);
-    // console.log(cameraMatrix)
     var projectionMatrix = m4.identity();
-    // console.log(viewMatrix)
-
 
     if (projectionMode == "orthographic") {
       projectionMatrix = m4.orthographic(left, right, bottom, topFov, near, far);
@@ -324,15 +324,17 @@ function drawScene() {
       translation[0],
       translation[1],
       translation[2]
-    );
+      );
+    matrix = m4.scale(matrix, scale[0], scale[1], scale[2]);
+
+    matrix = m4.translate(matrix, centerPosition[0], centerPosition[1], centerPosition[2])
     matrix = m4.xRotate(matrix, rotation[0]);
     matrix = m4.yRotate(matrix, rotation[1]);
     matrix = m4.zRotate(matrix, rotation[2]);
-    matrix = m4.scale(matrix, scale[0], scale[1], scale[2]);
+    matrix = m4.translate(matrix, -centerPosition[0], -centerPosition[1], -centerPosition[2])
 
     matrix = m4.multiply(viewMatrix, matrix);
     matrix = m4.multiply(projectionMatrix, matrix);
-    // matrix = m4.multiply(projectionMatrix, matrix);
 
     var worldMatrix = matrix;
     var worldInverseMatrix = m4.inverse(worldMatrix);
